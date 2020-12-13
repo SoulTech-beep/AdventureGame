@@ -15,7 +15,7 @@ public class Story implements ActionListener {
 		switch(ui.position) {
 			case "castleEntrance" :
 				switch (chosen) {
-					case "c1" : dungeonsEntrance(); break;
+					case "c1" : dungeonEntrance(); break;
 					case "c2" : break;
 					case "c3" : break;
 				}
@@ -28,7 +28,7 @@ public class Story implements ActionListener {
 		}
 	}
 
-	private void dungeonsEntrance(){
+	private void dungeonEntrance(){
 		String position = "dungeonEntrance";
 		String text = "You are now in the entrance to the dungeons of the castle";
 		String ch1 = "Go up";
