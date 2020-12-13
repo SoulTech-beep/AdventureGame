@@ -8,7 +8,6 @@ public class Story implements ActionListener {
 	public Story (UI ui) {
 		this.ui=ui;
 	}
-
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		String chosen = event.getActionCommand();
