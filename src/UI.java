@@ -71,7 +71,7 @@ public class UI {
 		position = "castleEntrance";
 
 		//Main Text
-		textArea = new JTextArea("Hello World");
+		textArea = new JTextArea("You awaken inside a dark castle. You must find a way to escape. Which way do you go?");
 		textArea.setLineWrap(true);
 		textArea.setFont(font);
 		textArea.setBounds(100, height/2+170, 1000, 100);
@@ -81,7 +81,7 @@ public class UI {
 		frame.add(textArea);
 
 		//Option One
-		ch1 = new JButton("Door on the left");
+		ch1 = new JButton("Go left");
 		ch1.setActionCommand("c1");
 		ch1.addActionListener(story);
 		ch1.setBackground(Color.BLACK);
@@ -91,7 +91,7 @@ public class UI {
 		frame.add(ch1);
 
 		//Option Two
-		ch2 = new JButton("Up the stairs");
+		ch2 = new JButton("Go up the stairs");
 		ch2.setActionCommand("c2");
 		ch2.addActionListener(story);
 		ch2.setBackground(Color.BLACK);
@@ -102,7 +102,7 @@ public class UI {
 
 
 		//Option Three
-		ch3 = new JButton("Door on the right");
+		ch3 = new JButton("Go right");
 		ch3.setActionCommand("c3");
 		ch3.addActionListener(story);
 		ch3.setBackground(Color.BLACK);
