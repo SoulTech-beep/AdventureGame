@@ -20,6 +20,7 @@ public class Story implements ActionListener {
 			case "c3" : break;
 			}
 		}
+
 	}
 	
 	

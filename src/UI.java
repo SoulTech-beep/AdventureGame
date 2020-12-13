@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,17 +12,20 @@ import javax.swing.WindowConstants;
 public class UI {
 
 	private JFrame frame;
-	protected Image image;
-	protected ImagePanel imagePanel;
 	private int width;
 	private int height;
+	private Font font = new Font ("Times New Roman", Font.PLAIN, 24);
+
+	protected Image image;
+	protected ImagePanel imagePanel;
 	protected Song song;
 	protected String position;
-	private Font font = new Font ("Times New Roman", Font.PLAIN, 24);
-	protected JTextArea textArea;
+	protected JTextArea mainTextArea;
 	protected JButton ch1, ch2, ch3;
 	protected Story story = new Story (this);
-	
+
+
+
 	public void createUI() {
 		//Frame and Background
 		frame = new JFrame ("Castle Adventure");
@@ -40,7 +44,8 @@ public class UI {
 		
 		
 		//Story
-		castleEntrance();
+		newPosition("castleEntrance","Hello World", "Door on the left","Up the stairs", "Door on the right");
+
 				
 		//Song
 		song = new Song ("songs/s0.wav");
@@ -59,22 +64,21 @@ public class UI {
 		frame.setContentPane(imagePanel);
 	}
 	
-	private void castleEntrance() {
-		//Define Player's Position with String
-		position = "castleEntrance";
-		
+	private void newPosition(String position, String mainText, String optOneText, String optTwoText, String optThreeText){
+		this.position = position;
+
 		//Main Text
-		textArea = new JTextArea("Hello World");
-		textArea.setLineWrap(true);
-		textArea.setFont(font);
-		textArea.setBounds(100, height/2+170, 1000, 100);
-		textArea.setBackground(null);
-		textArea.setForeground(Color.BLACK);
-		textArea.setEditable(false);
-		frame.add(textArea);
-		
+		mainTextArea = new JTextArea(mainText);
+		mainTextArea.setLineWrap(true);
+		mainTextArea.setFont(font);
+		mainTextArea.setBounds(100, height/2+170, 1000, 100);
+		mainTextArea.setBackground(null);
+		mainTextArea.setForeground(Color.BLACK);
+		mainTextArea.setEditable(false);
+		frame.add(mainTextArea);
+
 		//Option One
-		ch1 = new JButton("Door on the left");
+		ch1 = new JButton(optOneText);
 		ch1.setActionCommand("c1");
 		ch1.addActionListener(story);
 		ch1.setBackground(Color.BLACK);
@@ -82,9 +86,10 @@ public class UI {
 		ch1.setFont(font);
 		ch1.setBounds(100, height/2+300, 333, 50);
 		frame.add(ch1);
-		
+		story.actionPerformed(ch1.getAction());
+
 		//Option Two
-		ch2 = new JButton("Up the stairs");
+		ch2 = new JButton(optTwoText);
 		ch2.setActionCommand("c2");
 		ch2.addActionListener(story);
 		ch2.setBackground(Color.BLACK);
@@ -92,10 +97,10 @@ public class UI {
 		ch2.setFont(font);
 		ch2.setBounds(435, height/2+300, 334, 50);
 		frame.add(ch2);
-		
-		
+
+
 		//Option Three
-		ch3 = new JButton("Door on the right");
+		ch3 = new JButton(optThreeText);
 		ch3.setActionCommand("c3");
 		ch3.addActionListener(story);
 		ch3.setBackground(Color.BLACK);
@@ -103,7 +108,9 @@ public class UI {
 		ch3.setFont(font);
 		ch3.setBounds(771, height/2+300, 333, 50);
 		frame.add(ch3);
-
 	}
-	
+
+	public class SomethingHandler implements ActionListener {
+		public void actionPerformed
+	}
 }
