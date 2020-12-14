@@ -10,9 +10,11 @@ public class StartMenu {
 
     ImagePanel titleImagePanel = new ImagePanel();
 
-    JButton startButton = new JButton("START");
+    JButton startButton = new JButton("START GAME");
+    JButton rulesButton = new JButton("INSTRUCTIONS");
 
-    JButton rulesButton = new JButton("RULES");
+    private int windowWidth;
+    private int windowHeight;
 
     public StartMenu(){
         window.setLayout(null);
@@ -23,46 +25,49 @@ public class StartMenu {
         Image image = img.getImage();
         titleImagePanel.setImage(image);
         window.setContentPane(titleImagePanel);
-        titleImagePanel.setBounds(0,0, img.getIconWidth(), img.getIconHeight());
+        windowWidth = img.getIconWidth();
+        windowHeight = img.getIconHeight();
+        titleImagePanel.setBounds(0,0, windowWidth, windowHeight);
         window.setSize(img.getIconWidth(), img.getIconHeight());
 
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (int) (dimension.getWidth()/2 - 600);
-        int y = (int) (dimension.getHeight()/2 - 453.5);
+        int x = (int) (dimension.getWidth()/2 - windowWidth/2);
+        int y = (int) (dimension.getHeight()/2 - windowHeight/2);
         window.setLocation(x, y);
         window.setResizable(false);
-
-        startButton.setFont(Auxiliary.startBottonText);
-        startButton.setBackground(Color.BLACK);
-        startButton.setForeground(Color.WHITE);
-        startButton.setBounds();
-        window.add(startButton);
 
         Song song = new Song ("songs/mainMenu.wav");
         song.start();
         song.loop();
 
+        startButton.setFont(Auxiliary.startButtonText);
+        startButton.setBackground(Color.BLACK);
+        startButton.setForeground(Color.WHITE);
+        startButton.setBounds(windowWidth/2 - 210/2, 540, 210, 70);
+
+
+
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Stop menu song
                 song.stop();
                 UI ui = new UI();
                 ui.createUI(window);
             }
         });
+        window.add(startButton);
 
-
-        rulesButton.setFont(Auxiliary.buttonFont);
-        rulesButton.setBackground(Color.BLUE);
-        rulesButton.setForeground(Color.YELLOW);
+        rulesButton.setFont(Auxiliary.startButtonText);
+        rulesButton.setBackground(Color.BLACK);
+        rulesButton.setForeground(Color.WHITE);
+        rulesButton.setBounds(windowWidth/2 - 210/2, 630, 210, 70);
         rulesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("yyyyyyyyyyyyyyyyyyy");
             }
         });
-
+        window.add(rulesButton);
         window.setVisible(true);
 
     }
