@@ -21,10 +21,8 @@ public class StartMenu {
         Image image = img.getImage();
         titleImagePanel.setImage(image);
         window.setContentPane(titleImagePanel);
-        int windowWidth = img.getIconWidth();
-        int windowHeight = img.getIconHeight();
-        titleImagePanel.setBounds(0,0, windowWidth, windowHeight);
-        window.setSize(windowWidth, windowHeight);
+        titleImagePanel.setBounds(0,0, img.getIconWidth(), img.getIconHeight());
+        window.setSize(img.getIconWidth(), img.getIconHeight());
 
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) (dimension.getWidth()/2 - 600);
