@@ -1,8 +1,4 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,20 +15,18 @@ public class UI {
 	private int buttonHeight = 50;
 	protected Song song;
 	protected String position;
-	private Font fontTextArea = new Font ("Times New Roman", Font.PLAIN, 24);
-	private Font fontButton = new Font ("Times New Roman", Font.PLAIN, 16);
-	protected JTextArea textArea;
-	protected JButton ch1, ch2, ch3, ch4, ch5;
+	private final Font fontMainText = new Font ("Times New Roman", Font.PLAIN, 24);
+	private final Font fontButtonText = new Font ("Times New Roman", Font.PLAIN, 16);
+	protected JTextArea mainText;
+	protected JButton bt1, bt2, bt3, bt4, bt5;
 	protected Story story = new Story (this);
 
 	public void createUI() {
 		//Frame and Background
 		frameCreate();
 
-		//Story
+		//Start Point
 		mainHall();
-
-		//Song
 		setSong("s0.wav");
 
 		frame.setVisible(true);
@@ -58,8 +52,9 @@ public class UI {
 		frame.setLayout(null);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.getContentPane().setBackground(Color.BLACK);
+
 		imagePanel = new ImagePanel();
-		setBackground("b0.jpg");
+		setBackground("mainHall.jpg");
 		imagePanel.setBounds(0,0, width,height);
 		frame.setSize(width,height);
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -74,66 +69,40 @@ public class UI {
 		position = "mainHall";
 
 		//Main Text
-		textArea = new JTextArea("You awaken inside a dark castle. You must find a way to escape. Which way do you go?");
-		textArea.setLineWrap(true);
-		textArea.setFont(fontTextArea);
-		textArea.setBounds(100, height/2+190, 1000, 100);
-		textArea.setBackground(null);
-		textArea.setForeground(Color.BLACK);
-		textArea.setEditable(false);
-		frame.add(textArea);
-
-		//Option One
-		ch1 = new JButton("DINING HALL");
-		ch1.setActionCommand("c1");
-		ch1.addActionListener(story);
-		ch1.setBackground(Color.BLACK);
-		ch1.setForeground(Color.WHITE);
-		ch1.setFont(fontButton);
-		ch1.setBounds(100, height/2+300, buttonWidth, buttonHeight);
-		frame.add(ch1);
-
-		//Option Two
-		ch2 = new JButton("DUNGEON");
-		ch2.setActionCommand("c2");
-		ch2.addActionListener(story);
-		ch2.setBackground(Color.BLACK);
-		ch2.setForeground(Color.WHITE);
-		ch2.setFont(fontButton);
-		ch2.setBounds((100 + buttonWidth + width/2-buttonWidth/2)/2 - buttonWidth/2, height/2+300, buttonWidth, buttonHeight);
-		frame.add(ch2);
+		mainText = new JTextArea("You awaken inside a dark castle. You must find a way to escape. Which way do you go?");
+		mainText.setLineWrap(true);
+		mainText.setFont(fontMainText);
+		mainText.setBounds(100, height / 2 + 190, 1000, 100);
+		mainText.setBackground(null);
+		mainText.setForeground(Color.BLACK);
+		mainText.setEditable(false);
+		frame.add(mainText);
 
 
-		//Option Three
-		ch3 = new JButton("UP THE STAIRS");
-		ch3.setActionCommand("c3");
-		ch3.addActionListener(story);
-		ch3.setBackground(Color.BLACK);
-		ch3.setForeground(Color.WHITE);
-		ch3.setFont(fontButton);
-		ch3.setBounds(width/2-buttonWidth/2, height/2+300, buttonWidth, buttonHeight);
-		frame.add(ch3);
+		// Buttons
+		bt1 = setButton("DINING HALL", "b1", 100);
+		frame.add(bt1);
+		bt2 = setButton("DUNGEON", "b2", (100 + buttonWidth + width / 2 - buttonWidth / 2) / 2 - buttonWidth / 2);
+		frame.add(bt2);
+		bt3 = setButton("UP THE STAIRS", "b3", width / 2 - buttonWidth / 2);
+		frame.add(bt3);
+		bt4 = setButton("BATHROOM", "b4", (width / 2 + buttonWidth / 2 + 1100 - buttonWidth) / 2 - buttonWidth / 2);
+		frame.add(bt4);
+		bt5 = setButton("THRONE ROOM", "b5", 1100 - buttonWidth);
+		frame.add(bt5);
+	}
 
-		//Option Four
-		ch4 = new JButton("BATHROOM");
-		ch4.setActionCommand("c4");
-		ch4.addActionListener(story);
-		ch4.setBackground(Color.BLACK);
-		ch4.setForeground(Color.WHITE);
-		ch4.setFont(fontButton);
-		ch4.setBounds((width/2+ buttonWidth/2 + 1100-buttonWidth)/2 - buttonWidth/2, height/2+300, buttonWidth, buttonHeight);
-		frame.add(ch4);
+	private JButton setButton(String textButton, String id, int buttonX){
 
-
-		//Option Five
-		ch5 = new JButton("THRONE ROOM");
-		ch5.setActionCommand("c5");
-		ch5.addActionListener(story);
-		ch5.setBackground(Color.BLACK);
-		ch5.setForeground(Color.WHITE);
-		ch5.setFont(fontButton);
-		ch5.setBounds(1100-buttonWidth, height/2+300, buttonWidth, buttonHeight);
-		frame.add(ch5);
+		JButton button = new JButton(textButton);
+		button.setActionCommand(id);
+		button.addActionListener(story);
+		button.setBackground(Color.BLACK);
+		button.setForeground(Color.WHITE);
+		button.setFont(fontButtonText);
+		Rectangle bounds = new Rectangle(buttonX, height/2+300, buttonWidth, buttonHeight);
+		button.setBounds(bounds);
+		return button;
 	}
 
 }

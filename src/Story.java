@@ -14,108 +14,103 @@ public class Story implements ActionListener {
 		switch(ui.position) {
 			case "mainHall" :
 				switch (chosen) {
-					case "c1" : break;
-					case "c2" : dungeonEntrance(); break;
-					case "c3" : break;
-					case "c4":  break;
-					case "c5" : break;
+					case "b1" : break;
+					case "b2" :
+						dungeonEntrance("You are now in the entrance of the Dungeon of the castle");
+						break;
+					case "b3" : break;
+					case "b4" : break;
+					case "b5" : break;
 				}
+				break;
+
 			case "dungeonEntrance":
 				switch (chosen){
-					case "c1": break;
-					case "c2": break;
-					case "c3": shrine(); break;
-					case "c4": mainHallAgain(); break;
-					case "c5": break;
+					case "b2": break;
+					case "b3":
+						shrine("You are now at the shrine");
+						break;
+					case "b4":
+						mainHall("You are now at the main hall");
+						break;
 				}
+				break;
+
+			case "shrine":
+				switch (chosen){
+					case "b1": break;
+					case "b2":
+						dungeonEntrance("You came back to the Dungeon");
+						break;
+				}
+				break;
 		}
 	}
 
-	private void dungeonEntrance(){
-		String position = "dungeonEntrance";
-		String text = "You are now in the entrance of the dungeons of the castle";
-		String ch2 = "ALCHEMY ROOM";
-		String ch3 = "SHRINE";
-		String ch4 = "GO BACK";
-		String background = "b1.jpg";
-		changePosition(position, text, ch2, ch3, ch4, background);
-	}
 
-	private void mainHallAgain(){
+	private void mainHall(String mainText){
 		String position = "mainHall";
-		String text = "You are now at the main hall";
-		String ch1 = "DINING HALL";
-		String ch2 = "DUNGEONS";
-		String ch3 = "UP THE STAIRS";
-		String ch4 = "BATHROOM";
-		String ch5 = "THRONE ROOM";
-		String background = "b0.jpg";
-		changePosition(position, text, ch1, ch2, ch3, ch4, ch5, background);
+		String tb1 = "DINING HALL";
+		String tb2 = "DUNGEON";
+		String tb3 = "UP THE STAIRS";
+		String tb4 = "BATHROOM";
+		String tb5 = "THRONE ROOM";
+		String background = "mainHall.jpg";
+		changePosition(position, mainText, tb1, tb2, tb3, tb4, tb5, background, null);
 	}
 
-	private void shrine(){
+	private void dungeonEntrance(String mainText){
+		String position = "dungeonEntrance";
+		String tb2 = "ALCHEMY ROOM";
+		String tb3 = "SHRINE";
+		String tb4 = "GO BACK";
+		String background = "dungeonEntrance.jpg";
+		changePosition(position, mainText, null, tb2, tb3, tb4, null,  background, null);
+	}
+
+	private void shrine(String mainText){
 		String position = "shrine";
-		String text = "You are now at the shrine";
-		String ch1 = "DUNGEONS";
-		String ch2 = "STAFF ROOM";
-		String ch3 = "UP THE STAIRS";
-		String ch4 = "BATHROOM";
-		String ch5 = "MAIN HALL";
-		String background = "b2.jpg";
-		changePosition(position, text, ch1, ch2, ch3, ch4, ch5, background);
+		String tb1 = "SPECIAL ROOM";
+		String tb2 = "GO BACK";
+		String background = "shrine.jpg";
+		changePosition(position, mainText, tb1, tb2, null, null, null, background, null);
 	}
 
 
-	public void changePosition(String position, String text, String ch1, String ch2, String ch3, String ch4, String ch5, String background) {
-		ui.textArea.setText(text);
+	public void changePosition(String position, String mainText, String textButton1, String textButton2, String textButton3, String textButton4, String textButton5, String background, String textSong) {
+		ui.mainText.setText(mainText);
 		ui.position = position;
-		ui.ch1.setText(ch1);
-		ui.ch1.setVisible(true);
-		ui.ch2.setText(ch2);
-		ui.ch2.setVisible(true);
-		ui.ch3.setText(ch3);
-		ui.ch3.setVisible(true);
-		ui.ch4.setText(ch4);
-		ui.ch4.setVisible(true);
-		ui.ch5.setText(ch5);
-		ui.ch5.setVisible(true);
+		if(textButton1 != null) {
+			ui.bt1.setText(textButton1);
+			ui.bt1.setVisible(true);
+		}else{ui.bt1.setVisible(false);}
+
+		if(textButton2 != null) {
+			ui.bt2.setText(textButton2);
+			ui.bt2.setVisible(true);
+		}else{ui.bt2.setVisible(false);}
+
+		if(textButton3 != null) {
+			ui.bt3.setText(textButton3);
+			ui.bt3.setVisible(true);
+		}else{ui.bt3.setVisible(false);}
+
+		if(textButton4 != null) {
+			ui.bt4.setText(textButton4);
+			ui.bt4.setVisible(true);
+		}else{ui.bt4.setVisible(false);}
+
+		if(textButton5 != null) {
+			ui.bt5.setText(textButton5);
+			ui.bt5.setVisible(true);
+		}else{ui.bt5.setVisible(false);}
+
+		if(textSong != null) {
+			ui.setSong(textSong);
+		}
 		ui.setBackground(background);
 	}
 
-	public void changePosition(String position, String text, String ch1, String ch2, String ch3, String ch4, String ch5, String background, String song) {
-		ui.textArea.setText(text);
-		ui.position = position;
-		ui.ch1.setText(ch1);
-		ui.ch2.setText(ch2);
-		ui.ch3.setText(ch3);
-		ui.ch4.setText(ch4);
-		ui.ch5.setText(ch5);
-		ui.setBackground(background);
-		ui.setSong(song);
-	}
-
-	public void changePosition(String position, String text, String ch2, String ch3, String ch4, String background) {
-		ui.textArea.setText(text);
-		ui.position = position;
-		ui.ch1.setVisible(false);
-		ui.ch2.setText(ch2);
-		ui.ch3.setText(ch3);
-		ui.ch4.setText(ch4);
-		ui.ch5.setVisible(false);
-		ui.setBackground(background);
-	}
-
-	public void changePosition(String position, String text, String ch2, String ch3, String ch4, String background, String song) {
-		ui.textArea.setText(text);
-		ui.position = position;
-		ui.ch1.setVisible(false);
-		ui.ch2.setText(ch2);
-		ui.ch3.setText(ch3);
-		ui.ch4.setText(ch4);
-		ui.ch5.setVisible(false);
-		ui.setBackground(background);
-		ui.setSong(song);
-	}
 
 
 	/*Modelo
