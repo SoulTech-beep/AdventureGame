@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 public class StartMenu {
 
@@ -9,8 +11,12 @@ public class StartMenu {
 
     ImagePanel titleImagePanel = new ImagePanel();
 
+
     JPanel startButtonPanel = new JPanel();
-    JButton startButton = new JButton();
+    JButton startButton = new JButton("START");
+
+    JPanel rulesButtonPanel = new JPanel();
+    JButton rulesButton = new JButton("RULES");
 
     public StartMenu(){
         window.setLayout(null);
@@ -34,15 +40,32 @@ public class StartMenu {
 
         startButtonPanel.setBounds(400,400,200,80);
         startButtonPanel.setBackground(Color.RED);
-        startButton.setText("START");
         startButton.setFont(Auxiliary.startBottonText);
         startButton.setBackground(Color.BLACK);
         startButton.setForeground(Color.WHITE);
-
         startButtonPanel.add(startButton);
         con.add(startButtonPanel);
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UI ui = new UI();
+                ui.createUI(window);
+            }
+        });
 
-
+        rulesButtonPanel.setBounds(400,600,200,80);
+        rulesButtonPanel.setBackground(Color.GREEN);
+        rulesButton.setFont(Auxiliary.buttonFont);
+        rulesButton.setBackground(Color.BLUE);
+        rulesButton.setForeground(Color.YELLOW);
+        rulesButtonPanel.add(rulesButton);
+        con.add(rulesButtonPanel);
+        rulesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("yyyyyyyyyyyyyyyyyyy");
+            }
+        });
 
         window.setVisible(true);
 

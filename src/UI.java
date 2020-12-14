@@ -17,34 +17,38 @@ public class UI {
 	protected JButton bt1, bt2, bt3, bt4, bt5;
 	protected Story story = new Story (this);
 
-	public void createUI() {
+	public void createUI(JFrame window) {
+		this.window = window;
+		setBackground("mainHall.jpg");
+		imagePanel.setBounds(0,0, windowWidth, windowHeight);
+
 		//Frame and Background
-		frameCreate();
+//		frameCreate();
 
 		//Start Point
 		mainHall();
 		setSong("s0.wav");
 
-		window.setVisible(true);
+		this.window.setVisible(true);
 	}
 
 
 
-	private void frameCreate() {
-		window = new JFrame ("Castle Adventure");
-		window.setLayout(null);
-		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		window.getContentPane().setBackground(Color.BLACK);
-
-		setBackground("mainHall.jpg");
-		imagePanel.setBounds(0,0, windowWidth, windowHeight);
-		window.setSize(windowWidth, windowHeight);
-		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-		int x = (int) dimension.getWidth()/2 - windowWidth /2;
-		int y = (int) dimension.getHeight()/2 - windowHeight /2;
-		window.setLocation(x, y);
-		window.setResizable(false);
-	}
+//	private void frameCreate() {
+//		window = new JFrame ("Castle Adventure");
+//		window.setLayout(null);
+//		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//		window.getContentPane().setBackground(Color.BLACK);
+//
+//		setBackground("mainHall.jpg");
+//		imagePanel.setBounds(0,0, windowWidth, windowHeight);
+//		window.setSize(windowWidth, windowHeight);
+//		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+//		int x = (int) dimension.getWidth()/2 - windowWidth /2;
+//		int y = (int) dimension.getHeight()/2 - windowHeight /2;
+//		window.setLocation(x, y);
+//		window.setResizable(false);
+//	}
 
 	public void setBackground(String name) {
 		imagePanel = new ImagePanel();

@@ -4,7 +4,6 @@ public class Game {
 	public Game () {
 		UI ui = new UI();
 		StartMenu sm = new StartMenu();
-//		ui.createUI();
 	}
 
 	public static void main (String[] args) {
