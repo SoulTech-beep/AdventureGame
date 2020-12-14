@@ -90,7 +90,6 @@ public class UI {
 	}
 
 	private JButton setButton(String textButton, String id, int buttonX){
-
 		JButton button = new JButton(textButton);
 		button.setActionCommand(id);
 		button.addActionListener(story);

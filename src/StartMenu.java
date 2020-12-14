@@ -1,13 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class StartMenu {
 
     JFrame window = new JFrame("Castle Adventure");
     Container con;
 
-    ImagePanel titleNamePanel = new ImagePanel();
-    JLabel titleNameLabel = new JLabel();
+    ImagePanel titleImagePanel = new ImagePanel();
 
     JPanel startButtonPanel = new JPanel();
     JButton startButton = new JButton();
@@ -17,7 +17,7 @@ public class StartMenu {
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.getContentPane().setBackground(Color.BLACK);
         window.setLayout(null);
-        window.setVisible(true);
+
 
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) (dimension.getWidth()/2 - 600);
@@ -39,9 +39,18 @@ public class StartMenu {
 //        con.add(titleNamePanel);
 
 
+        ImageIcon img = new ImageIcon(getClass().getClassLoader().getResource("images/mainMenu.jpeg"));
+        Image image = img.getImage();
+        titleImagePanel.setImage(image);
+        window.setContentPane(titleImagePanel);
+
+
+//
+//        window.add(new JLabel(new ImageIcon("C:\\Users\\Henrique\\IdeaProjects\\AdventureGame\\src\\images\\title.jpg")));
+
 
         startButtonPanel.setBounds(400,400,200,80);
-        startButtonPanel.setBackground(Color.red);
+        startButtonPanel.setBackground(Color.RED);
         startButton.setText("START");
         startButton.setFont(Auxiliary.startBottonText);
         startButton.setBackground(Color.BLACK);
@@ -52,7 +61,7 @@ public class StartMenu {
 
 
 
-
+        window.setVisible(true);
 
     }
 
