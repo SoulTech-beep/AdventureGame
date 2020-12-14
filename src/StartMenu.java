@@ -45,9 +45,15 @@ public class StartMenu {
         startButton.setForeground(Color.WHITE);
         startButtonPanel.add(startButton);
         con.add(startButtonPanel);
+
+        Song song = new Song ("songs/mainMenu.wav");
+        song.start();
+        song.loop();
+
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                song.stop();
                 UI ui = new UI();
                 ui.createUI(window);
             }
