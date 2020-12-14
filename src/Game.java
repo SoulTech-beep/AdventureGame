@@ -3,7 +3,8 @@ public class Game {
 	//Main class
 	public Game () {
 		UI ui = new UI();
-		ui.createUI();
+		StartMenu sm = new StartMenu();
+//		ui.createUI();
 	}
 
 	public static void main (String[] args) {
