@@ -16,7 +16,7 @@ public class Story implements ActionListener {
 				switch (chosen) {
 					case "b1" : break;
 					case "b2" :
-						dungeonEntrance("You are now in the entrance of the Dungeon of the castle");
+						dungeonEntrance("You are now in the dungeons of the castle.");
 						break;
 					case "b3" : break;
 					case "b4" : break;
@@ -28,10 +28,10 @@ public class Story implements ActionListener {
 				switch (chosen){
 					case "b2": break;
 					case "b3":
-						shrine("You are now at the shrine");
+						shrine("You are now at the shrine.");
 						break;
 					case "b4":
-						mainHall("You are now at the main hall");
+						mainHall("You are now in the main hall.");
 						break;
 				}
 				break;
@@ -40,7 +40,7 @@ public class Story implements ActionListener {
 				switch (chosen){
 					case "b1": break;
 					case "b2":
-						dungeonEntrance("You came back to the Dungeon");
+						dungeonEntrance("You came back to the dungeons");
 						break;
 				}
 				break;

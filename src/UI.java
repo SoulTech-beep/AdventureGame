@@ -18,18 +18,18 @@ public class UI {
 	protected Story story = new Story (this);
 
 	public void createUI(JFrame window) {
+		//Create Frame
 		this.window = window;
 		setBackground("mainHall.jpg");
 		imagePanel.setBounds(0,0, windowWidth, windowHeight);
 
-		//Frame and Background
-//		frameCreate();
-
-		//Start Point
+		//Set position
 		mainHall();
+
+		//Set song
 		setSong("s0.wav");
 
-		this.window.setVisible(true);
+		//window.setVisible(true);
 	}
 
 
