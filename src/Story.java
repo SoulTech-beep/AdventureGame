@@ -83,31 +83,26 @@ public class Story implements ActionListener {
 		ui.setBackground(background);
 		if(textButton1 != null) {
 			ui.bt1.setText(textButton1);
-			System.out.println("bt1: " + ui.bt1.getText());
 			ui.bt1.setVisible(true);
 		}else{ui.bt1.setVisible(false);}
 
 		if(textButton2 != null) {
 			ui.bt2.setText(textButton2);
-			System.out.println("bt2: " + ui.bt2.getText());
 			ui.bt2.setVisible(true);
 		}else{ui.bt2.setVisible(false);}
 
 		if(textButton3 != null) {
 			ui.bt3.setText(textButton3);
-			System.out.println("bt3: " + ui.bt3.getText());
 			ui.bt3.setVisible(true);
 		}else{ui.bt3.setVisible(false);}
 
 		if(textButton4 != null) {
 			ui.bt4.setText(textButton4);
-			System.out.println("bt4: " + ui.bt4.getText());
 			ui.bt4.setVisible(true);
 		}else{ui.bt4.setVisible(false);}
 
 		if(textButton5 != null) {
 			ui.bt5.setText(textButton5);
-			System.out.println("bt5: " + ui.bt5.getText());
 			ui.bt5.setVisible(true);
 		}else{ui.bt5.setVisible(false);}
 
@@ -116,19 +111,5 @@ public class Story implements ActionListener {
 		}
 
 	}
-
-
-
-	/*Modelo
-	* 	String position = "";
-		String text = "";
-		String ch1 = "";
-		String ch2 = "";
-		String ch3 = "";
-		String ch4 = "";
-		String ch5 = "";
-		String background = "";
-		changePosition(position, text, ch1, ch2, ch3, ch4, ch5, background);
-		* */
 
 }

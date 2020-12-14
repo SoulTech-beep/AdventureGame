@@ -33,23 +33,6 @@ public class UI {
 	}
 
 
-
-//	private void frameCreate() {
-//		window = new JFrame ("Castle Adventure");
-//		window.setLayout(null);
-//		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//		window.getContentPane().setBackground(Color.BLACK);
-//
-//		setBackground("mainHall.jpg");
-//		imagePanel.setBounds(0,0, windowWidth, windowHeight);
-//		window.setSize(windowWidth, windowHeight);
-//		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-//		int x = (int) dimension.getWidth()/2 - windowWidth /2;
-//		int y = (int) dimension.getHeight()/2 - windowHeight /2;
-//		window.setLocation(x, y);
-//		window.setResizable(false);
-//	}
-
 	public void setBackground(String name) {
 		ImageIcon img = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Images/backgrounds/" + name)));
 		windowWidth = img.getIconWidth();
