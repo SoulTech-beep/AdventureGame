@@ -10,7 +10,7 @@ public class UI {
 	private int buttonWidth = 180;
 	private int buttonHeight = 50;
 	protected Image image;
-	protected ImagePanel imagePanel;
+	protected ImagePanel imagePanel = new ImagePanel();
 	protected Song song;
 	protected String position;
 	protected JTextArea mainText;
@@ -51,7 +51,6 @@ public class UI {
 //	}
 
 	public void setBackground(String name) {
-		imagePanel = new ImagePanel();
 		ImageIcon img = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Images/backgrounds/" + name)));
 		windowWidth = img.getIconWidth();
 		windowHeight = img.getIconHeight();
