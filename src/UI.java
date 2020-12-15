@@ -1,5 +1,9 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class UI {
@@ -9,8 +13,7 @@ public class UI {
 	private int windowHeight;
 	private int buttonWidth = 180;
 	private int buttonHeight = 50;
-	protected Image image;
-	protected ImagePanel imagePanel = new ImagePanel();
+	protected ImagePanel backgroundPanel = new ImagePanel();
 	protected Song song;
 	protected String position;
 	protected JTextArea mainText;
@@ -20,8 +23,11 @@ public class UI {
 	public void createUI(JFrame window) {
 		//Create Frame
 		this.window = window;
-		setBackground("mainHall.jpg");
-		imagePanel.setBounds(0,0, windowWidth, windowHeight);
+		backgroundPanel = Auxiliary.setBackground("mainHall.jpg");
+		windowWidth = backgroundPanel.getWidth();
+		windowHeight = backgroundPanel.getHeight();
+		window.setContentPane(backgroundPanel);
+
 
 		//Set position
 		mainHall();
@@ -33,14 +39,7 @@ public class UI {
 	}
 
 
-	public void setBackground(String name) {
-		ImageIcon img = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Images/backgrounds/" + name)));
-		windowWidth = img.getIconWidth();
-		windowHeight = img.getIconHeight();
-		image = img.getImage();
-		imagePanel.setImage(image);
-		window.setContentPane(imagePanel);
-	}
+
 
 	public void setSong(String songLink) {
 		song = new Song ("songs/" + songLink);

@@ -8,27 +8,22 @@ public class StartMenu {
 
     JFrame window = new JFrame("Castle Adventure");
 
-    ImagePanel titleImagePanel = new ImagePanel();
+    protected ImagePanel backgroundPanel = new ImagePanel();
 
     JButton startButton = new JButton("START GAME");
     JButton rulesButton = new JButton("INSTRUCTIONS");
 
-    private int windowWidth;
-    private int windowHeight;
 
     public StartMenu(){
         window.setLayout(null);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.getContentPane().setBackground(Color.BLACK);
 
-        ImageIcon img = new ImageIcon(getClass().getClassLoader().getResource("images/mainMenu.jpg"));
-        Image image = img.getImage();
-        titleImagePanel.setImage(image);
-        window.setContentPane(titleImagePanel);
-        windowWidth = img.getIconWidth();
-        windowHeight = img.getIconHeight();
-        titleImagePanel.setBounds(0,0, windowWidth, windowHeight);
-        window.setSize(img.getIconWidth(), img.getIconHeight());
+        backgroundPanel = Auxiliary.setBackground("mainMenu.jpg");
+        int windowWidth = backgroundPanel.getWidth();
+        int windowHeight = backgroundPanel.getHeight();
+        window.setContentPane(backgroundPanel);
+        window.setSize(windowWidth, windowHeight);
 
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) (dimension.getWidth()/2 - windowWidth/2);

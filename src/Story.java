@@ -80,7 +80,7 @@ public class Story implements ActionListener {
 	public void changePosition(String position, String mainText, String textButton1, String textButton2, String textButton3, String textButton4, String textButton5, String background, String textSong) {
 		ui.mainText.setText(mainText);
 		ui.position = position;
-		ui.setBackground(background);
+//		ui.setBackground(background);
 		if(textButton1 != null) {
 			ui.bt1.setText(textButton1);
 			ui.bt1.setVisible(true);
