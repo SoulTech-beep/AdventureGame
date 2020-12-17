@@ -21,8 +21,7 @@ public class Song {
         clip.start();
     }
 
-    public void stop() {
-        clip.stop();
+    public void stop() { clip.stop();
     }
 
     public void loop() {
@@ -35,6 +34,9 @@ public class Song {
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
+    public void closeSong(){
+        clip.close();
+    }
 
     private void makeSong(String name){
         try {

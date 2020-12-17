@@ -55,7 +55,7 @@ public class StartMenu {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                song.stop();
+                song.closeSong();
                 TravelUI travelUi = new TravelUI(window);
             }
         });

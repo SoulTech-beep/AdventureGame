@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class Enemy extends Alive {
 
     private String name;
+    private String sound;
     private HashMap<String, Integer> EnemyDamage;
     private HashMap<String, Integer> EnemyHealth;
 
@@ -42,7 +43,6 @@ public class Enemy extends Alive {
         EnemyHealth.put("bat", 5);
         EnemyHealth.put("imp", 7);
         EnemyHealth.put("goblin", 9);
-        EnemyHealth.put("cultist", 12);
         EnemyHealth.put("knight", 15);
         EnemyHealth.put("troll", 19);
         EnemyHealth.put("wraith", 23);

@@ -42,7 +42,7 @@ public class CombatUI {
         //Create Frame
 		this.window = window;
 		setBackground("background.jpg");
-        song = new Song("game.wav");
+        song = new Song("Enemies/" + selectedEnemy + ".wav");
         enemy.updateEnemy(selectedEnemy);
         setCombatInterface();
         setEnemy();
@@ -167,12 +167,13 @@ public class CombatUI {
     private void clickedRun(){
         btRun.addActionListener(e -> {
             story.gameOver("");
-            //Player trys to run
-//            if(run)
-//                //run away //TODO ACABAR COMBATUI
-//            else
-//                //Enemy attacks Player
-//                player.setHP( player.getHP() - enemy.getDamage() );
+//            Player trys to run
+            if(run)
+                endCombatUI();
+                //run away //TODO ACABAR COMBATUI
+            else
+                //Enemy attacks Player
+                player.setHP( player.getHP() - enemy.getDamage() );
         });
     }
 
@@ -195,6 +196,7 @@ public class CombatUI {
         textPlayerHealth.setVisible(false);
         window.remove(textPlayerHealth);
         enemyLabel.setVisible(false);
+        song.closeSong();
         window.remove(enemyLabel);
     }
 }

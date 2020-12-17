@@ -3,6 +3,9 @@ package Window;
 import Combat.CombatUI;
 import Combat.Player;
 import Auxiliary.*;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -31,7 +34,7 @@ public class Story implements ActionListener {
 			case "entrance" :
 				switch (chosen) {
 					case "b1" : chooseEvent("", false); break;
-					case "b2" : combatUI.updateCombatUI(travelUi.window, this, "bat"); break; /*Inimigo 100%*/
+					case "b2" : goToCombatUI(travelUi.window, this, "bat"); break; /*Inimigo 100%*/
 					case "b3" : chooseEvent("", false); break;
 					case "b4" : gameOver("Wuss. The forest swalled you whole.");break; /*Fim do Jogo 100%*/
 					case "b5" : chooseEvent("", false); break;
@@ -47,7 +50,7 @@ public class Story implements ActionListener {
 
 			case "distantVoices":
 				switch (chosen){
-					case "b1" : combatUI.updateCombatUI(travelUi.window, this, "bat"); break;  //100% inimigo
+					case "b1" :goToCombatUI(travelUi.window, this, "bat"); break;  //100% inimigo
 					case "b3" : chooseEvent("You found some potions inside and gained +3 HP. ", false); break; //qto mais baixo o nivel mais facil de bazar
 					case "b5" : chooseEvent("The coast is clear. You move ahead. ", false); break;
 
@@ -107,6 +110,11 @@ public class Story implements ActionListener {
 	}
 
 	public void chooseEvent(String text, boolean fromCombatUI){
+		if(fromCombatUI){
+			travelUi.song.updateSong("game.wav");
+		}
+
+
 		System.out.println("Level: " + level);
 		//the higher the player level, the more probability of facing an enemy; the lesser the level, the less probability of facing
 		//binomial to know if there is an enemy
@@ -115,7 +123,7 @@ public class Story implements ActionListener {
 		if (bin>=1.5 && !fromCombatUI){
 			double tri = fun.triangular(1.0,  (double) FINALLEVEL, (double) level);
 			System.out.println("Tri: " + tri);
-			combatUI.updateCombatUI(travelUi.window, this, "bat");
+			goToCombatUI(travelUi.window, this, "bat");
 			level++;
 			k++;
 		}
@@ -293,10 +301,9 @@ public class Story implements ActionListener {
 			travelUi.bt5.setVisible(false);}
 
 		if(textSong != null) {
-			travelUi.song.stop();
+			travelUi.song.closeSong();
 			travelUi.song.updateSong(textSong);
 		}
-
 
 	}
 
@@ -312,6 +319,10 @@ public class Story implements ActionListener {
 	}
 
 */
+	private void goToCombatUI(JFrame window, Story story, String selectedEnemy){
+		travelUi.song.closeSong();
+		combatUI.updateCombatUI(window, story, selectedEnemy);
+	}
 
 
 
