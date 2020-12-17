@@ -11,6 +11,7 @@ public class CombatUI {
     public Player player;
 
     private JFrame window;
+    private JLabel enemyLabel;
     private int windowWidth = 1200;
     private int windowHeight = 907;
 
@@ -36,13 +37,13 @@ public class CombatUI {
         enemy = new Enemy();
     }
 
-    public void updateCombatUI(JFrame window, Story story) {
+    public void updateCombatUI(JFrame window, Story story, String selectedEnemy) {
         this.story = story;
         //Create Frame
 		this.window = window;
 		setBackground("background.jpg");
         song = new Song("game.wav");
-        enemy.updateEnemy("demonKing", 2, 10);
+        enemy.updateEnemy(selectedEnemy);
         setCombatInterface();
         setEnemy();
     }
@@ -63,7 +64,7 @@ public class CombatUI {
 
 
         ImageIcon img = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Images/Enemies/" + enemy.getName() + ".png")));
-        JLabel enemyLabel = new JLabel();
+        enemyLabel = new JLabel();
         enemyLabel.setBounds(windowWidth/2-300,windowHeight/2-300,600,600);
         enemyLabel.setIcon(img);
         window.add(enemyLabel);
@@ -75,9 +76,6 @@ public class CombatUI {
 
 
     public void setCombatInterface() {
-        //TODO FAZER JPANEL E O ICON COM A IMAGE
-
-
 
         //playerHealth
         textPlayerHealth = new JTextArea("HEALTH: " + player.getHP());
@@ -153,9 +151,7 @@ public class CombatUI {
             textEnemyHealth.setText("HEALTH: " + enemy.getHP());
 
             if(enemy.getHP() <= 0){
-                //TODO ACABAR COMBATUI
-                story.chooseEvent("");
-
+                endCombatUI();
             }
 
             //Enemy attacks Player
@@ -163,8 +159,7 @@ public class CombatUI {
             textPlayerHealth.setText("HEALTH: " + player.getHP());
 
             if(player.getHP() <= 0){
-                story.gameOver("You were defeated. ");
-                //TODO gameover
+               story.gameOver("You were defeated. ");
             }
         });
     }
@@ -187,6 +182,21 @@ public class CombatUI {
 
 
 
+    private void endCombatUI(){
+        story.chooseEvent("", true);
+        textPlayerHealth.setVisible(false);
+        window.remove(textPlayerHealth);
+        textPlayerDamage.setVisible(false);
+        window.remove(textPlayerDamage);
+        textEnemyHealth.setVisible(false);
+        window.remove(textEnemyHealth);
+        textEnemyDamage.setVisible(false);
+        window.remove(textEnemyDamage);
+        textPlayerHealth.setVisible(false);
+        window.remove(textPlayerHealth);
+        enemyLabel.setVisible(false);
+        window.remove(enemyLabel);
+    }
 }
 
 

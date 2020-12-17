@@ -22,7 +22,7 @@ public class Functions {
     }
 
     //Whether or not an enemy shows up
-    public int binomial(int n, int k, double p) { //n = number of tries; k = number of sucessses; p = probabibility to get it right 1st
+    public int binomial(int n, double p) { //n = number of tries; k = number of sucessses; p = probabibility to get it right 1st
         assert ( 0<=p && p<=1 && n>=1);
         int sum = 0;
         for (int i = 0; i < n; i++)

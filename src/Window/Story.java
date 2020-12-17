@@ -30,34 +30,34 @@ public class Story implements ActionListener {
 		switch(travelUi.position) {
 			case "entrance" :
 				switch (chosen) {
-					case "b1" : chooseEvent(""); break;
-					case "b2" : combatUI.updateCombatUI(travelUi.window, this); break; /*Inimigo 100%*/
-					case "b3" : chooseEvent(""); break;
+					case "b1" : chooseEvent("", false); break;
+					case "b2" : combatUI.updateCombatUI(travelUi.window, this, "bat"); break; /*Inimigo 100%*/
+					case "b3" : chooseEvent("", false); break;
 					case "b4" : gameOver("Wuss. The forest swalled you whole.");break; /*Fim do Jogo 100%*/
-					case "b5" : chooseEvent(""); break;
+					case "b5" : chooseEvent("", false); break;
 				}
 				break;
 
 			case "house":
 				switch (chosen){
-					case "b2" : player.setHP(player.getHP()+3); chooseEvent("You found some potions inside and gained +3 HP. "); break; /*Receber vida*/
-					case "b4" : chooseEvent(""); break;
+					case "b2" : player.setHP(player.getHP()+3); chooseEvent("You found some potions inside and gained +3 HP. ", false); break; /*Receber vida*/
+					case "b4" : chooseEvent("", false); break;
 				}
 				break;
 
 			case "distantVoices":
 				switch (chosen){
-					case "b1" : combatUI.updateCombatUI(travelUi.window, this); break;  //100% inimigo
-					case "b3" : chooseEvent("You found some potions inside and gained +3 HP. "); break; //qto mais baixo o nivel mais facil de bazar
-					case "b5" : chooseEvent("The coast is clear. You move ahead. "); break;
+					case "b1" : combatUI.updateCombatUI(travelUi.window, this, "bat"); break;  //100% inimigo
+					case "b3" : chooseEvent("You found some potions inside and gained +3 HP. ", false); break; //qto mais baixo o nivel mais facil de bazar
+					case "b5" : chooseEvent("The coast is clear. You move ahead. ", false); break;
 
 				}
 				break;
 
 			case "unicorn":
 				switch (chosen){
-					case "b2" : player.setHP(player.getHP()+5); chooseEvent("The unicorn gives you +5HP and leaves. "); break;
-					case "b3" : chooseEvent(""); break; //?% of an enemy
+					case "b2" : player.setHP(player.getHP()+5); chooseEvent("The unicorn gives you +5HP and leaves. ", false); break;
+					case "b3" : chooseEvent("", false); break; //?% of an enemy
 					case "b4" : gameOver("What kinda monster kills a unicorn?! You were instantly swallowed by the forest"); break; //Game over
 				}
 				break;
@@ -65,21 +65,21 @@ public class Story implements ActionListener {
 			case "hole":
 				switch (chosen){
 					case "b2" : break; //the higher the level, the more likely you are to jump over it
-					case "b4" : chooseEvent(""); break; //random chance of facing an enemy
+					case "b4" : chooseEvent("", false); break; //random chance of facing an enemy
 				}
 				break;
 
 			case "sword":
 				switch (chosen){
 					case "b2" : player.setDamage(player.getDamage()+4);break; //the higher the level, the more likely you are to jump over it
-					case "b4" : chooseEvent(""); break;
+					case "b4" : chooseEvent("", false); break;
 				}
 				break;
 
 			case "snake1":
 				switch (chosen){
 					case "b1" : gameOver("Wrong answer! The snake killed you mere seconds."); break;
-					case "b2" : player.setDamage(player.getDamage()+1); chooseEvent("The snake lets you pass. You are gifted +1DP. "); break;
+					case "b2" : player.setDamage(player.getDamage()+1); chooseEvent("The snake lets you pass. You are gifted +1DP. ", false); break;
 					case "b3" : gameOver("Wrong answer! The snake killed you mere seconds.");  break;
 					case "b4" : gameOver("Wrong answer! The snake killed you mere seconds.");  break;
 					case "b5" : gameOver("Wrong answer! The snake killed you mere seconds.");  break;
@@ -91,7 +91,7 @@ public class Story implements ActionListener {
 					case "b1" : gameOver("Wrong answer! The snake killed you mere seconds."); break;
 					case "b2" : gameOver("Wrong answer! The snake killed you mere seconds.");  break;
 					case "b3" : gameOver("Wrong answer! The snake killed you mere seconds.");  break;
-					case "b4" : player.setDamage(player.getDamage()+1); chooseEvent("The snake lets you pass. You are gifted +1DP. "); break;
+					case "b4" : player.setDamage(player.getDamage()+1); chooseEvent("The snake lets you pass. You are gifted +1DP. ", false); break;
 					case "b5" : gameOver("Wrong answer! The snake killed you mere seconds.");  break;
 				}
 				break;
@@ -106,27 +106,27 @@ public class Story implements ActionListener {
 		}
 	}
 
-	public void chooseEvent(String text){
+	public void chooseEvent(String text, boolean fromCombatUI){
 		System.out.println("Level: " + level);
 		//the higher the player level, the more probability of facing an enemy; the lesser the level, the less probability of facing
 		//binomial to know if there is an enemy
-		double bin = fun.binomial(FINALLEVEL,k,0.2);
+		double bin = fun.binomial(FINALLEVEL,0.2);
 		System.out.println("Bin: " + bin);
-		if (bin>=1.5){
+		if (bin>=1.5 && !fromCombatUI){
 			double tri = fun.triangular(1.0,  (double) FINALLEVEL, (double) level);
 			System.out.println("Tri: " + tri);
-			combatUI.updateCombatUI(travelUi.window, this);
+			combatUI.updateCombatUI(travelUi.window, this, "bat");
 			level++;
 			k++;
 		}
 		else{
 			//doesn't fight
 			int ratio = 6;
-			int event = new Random().nextInt(6 + 0 + 1);
+			int event = new Random().nextInt(6 + 1);
 			// int event1 = new Random().nextInt(6 + 0 + 1);
 			System.out.println("Event0: " + event);
 			while (usedEvents.contains(event)){
-				event = (int) Math.random()*ratio;
+				event = (int) (Math.random() * ratio);
 			}
 			System.out.println("Event: " + event);
 			usedEvents.add(event);
@@ -245,6 +245,8 @@ public class Story implements ActionListener {
 
 	public void gameOver(String text){
 		level = 0;
+		player.setHP(20);
+		player.setDamage(2);
 		usedEvents.clear();
 		String position = "gameOver";
 		String tb2 = "MAIN MENU";
