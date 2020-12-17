@@ -29,11 +29,11 @@ public class Story implements ActionListener {
 		switch(travelUi.position) {
 			case "entrance" :
 				switch (chosen) {
-					case "b1" : chooseEvent("");break;
+					case "b1" : break;
 					case "b2" : combatUI.updateCombatUI(travelUi.window, "background.jpg"); break; /*Inimigo 100%*/
-					case "b3" : unicorn(); break;
+					case "b3" : snake2(); break;
 					case "b4" : gameOver("Wuss. The forest swalled you whole.");break; /*Fim do Jogo 100%*/
-					case "b5" : break;
+					case "b5" : snake1(); break;
 				}
 				level++;
 				break;
@@ -58,9 +58,47 @@ public class Story implements ActionListener {
 
 			case "unicorn":
 				switch (chosen){
-					case "b2" : break; //100% inimigo
-					case "b3" : break; //20% of an enemy
+					case "b2" : player.setHP(player.getHP()+5); break;
+					case "b3" : break; //?% of an enemy
 					case "b4" : gameOver("What kinda monster kills a unicorn?! You were instantly swallowed by the forest"); break; //Game over
+				}
+				level++;
+				break;
+
+			case "hole":
+				switch (chosen){
+					case "b2" : break; //the higher the level, the more likely you are to jump over it
+					case "b4" : break; //random chance of facing an enemy
+				}
+				level++;
+				break;
+
+			case "sword":
+				switch (chosen){
+					case "b2" : player.setDamage(player.getDamage()+4);break; //the higher the level, the more likely you are to jump over it
+					case "b4" : break; //random chance of facing an enemy
+				}
+				level++;
+				break;
+
+			case "snake1":
+				switch (chosen){
+					case "b1" : gameOver("Wrong answer! The snake killed you mere seconds."); break;
+					case "b2" : player.setDamage(player.getDamage()+1); break;
+					case "b3" : gameOver("Wrong answer! The snake killed you mere seconds.");  break;
+					case "b4" : gameOver("Wrong answer! The snake killed you mere seconds.");  break;
+					case "b5" : gameOver("Wrong answer! The snake killed you mere seconds.");  break;
+				}
+				level++;
+				break;
+
+			case "snake2":
+				switch (chosen){
+					case "b1" : gameOver("Wrong answer! The snake killed you mere seconds."); break;
+					case "b2" : gameOver("Wrong answer! The snake killed you mere seconds.");  break;
+					case "b3" : gameOver("Wrong answer! The snake killed you mere seconds.");  break;
+					case "b4" : player.setDamage(player.getDamage()+1); break;
+					case "b5" : gameOver("Wrong answer! The snake killed you mere seconds.");  break;
 				}
 				level++;
 				break;
@@ -76,7 +114,7 @@ public class Story implements ActionListener {
 	}
 
 	private void chooseEvent(String text){
-		//binomial to know if there is an enemy
+		//the higher the player level, the more probability of facing an enemy; the lesser the level, the less probability of facing
 		System.out.println("p = " + p);
 		double bin = fun.binomial(n,k,p);
 		System.out.println(bin);
@@ -116,7 +154,7 @@ public class Story implements ActionListener {
 	private void house(){
 		String mainText = "You come across a house. It appears to be abandoned. What do you do?";
 		String position = "house";
-		String tb2 = "INVESTIGATE"; //G
+		String tb2 = "INVESTIGATE";
 		String tb4 = "KEEP MOVING";
 		String background = "house.jpg";
 		changePosition(position, mainText, null, tb2, null, tb4, null, null, background);
@@ -143,6 +181,48 @@ public class Story implements ActionListener {
 		changePosition(position, mainText, null, tb2, tb3, tb4, null, songLink, background);
 	}
 
+	private void hole(){
+		String mainText = "You come across a giant hole in the ground. You're unsure if you're able to jump over it or not. What do you do?";
+		String position = "hole";
+		String tb2 = "ATTEMPT TO JUMP";
+		String tb4 = "GO AROUND";
+		String background = "background.jpg";;
+		changePosition(position, mainText, null, tb2, null, tb4, null, null, background);
+	}
+
+	private void sword(){
+		String mainText = "You come across a sword stuck inside a large stone. What do you do?";
+		String position = "sword";
+		String tb2 = "ATTEMPT TO PULL SWORD";
+		String tb4 = "KEEP MOVING";
+		String background = "background.jpg";
+		changePosition(position, mainText, null, tb2, null, tb4, null, null, background);
+	}
+
+	private void snake1(){
+		String mainText = "A giant snake shows up and tells you that she will only let you pass if you answer her riddle correctly.  Her riddle is: I have seas with no water, coast with no sand, towns without people, mountains without    land. What am I?";
+		String position = "snake1";
+		String tb1 = "MOON";
+		String tb2 = "MAP";
+		String tb3 = "DREAM";
+		String tb4 = "IDEA";
+		String tb5 = "BOAT";
+		String background = "snake.jpg";
+		changePosition(position, mainText, tb1, tb2, tb3, tb4, tb5, null, background);
+	}
+
+	private void snake2(){
+		String mainText = "A giant snake shows up and tells you that she will only let you pass if you answer her riddle correctly.  Her riddle is: Often will I spin a tale, never will I charge a fee. I'll amuse you an entire eve, but, alas you wont remember me. What am I?";
+		String position = "snake1";
+		String tb1 = "LIAR";
+		String tb2 = "MUSIC";
+		String tb3 = "BOOK";
+		String tb4 = "DREAM";
+		String tb5 = "SPIDER";
+		String background = "snake.jpg";
+		changePosition(position, mainText, tb1, tb2, tb3, tb4, tb5, null, background);
+	}
+
 	private void gameOver(String text){
 		String position = "gameOver";
 		String tb2 = "MAIN MENU";
@@ -150,6 +230,8 @@ public class Story implements ActionListener {
 		String background = "gameOver.jpg";
 		changePosition(position, text, null, tb2, null, tb4, null, null, background);
 	}
+
+
 
 
 	public void changePosition(String position, String mainText, String textButton1, String textButton2, String textButton3, String textButton4, String textButton5, String textSong, String background) {
