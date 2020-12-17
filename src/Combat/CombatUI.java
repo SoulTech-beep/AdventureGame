@@ -154,6 +154,7 @@ public class CombatUI {
 
             if(enemy.getHP() <= 0){
                 //TODO ACABAR COMBATUI
+
             }
 
             //Enemy attacks Player

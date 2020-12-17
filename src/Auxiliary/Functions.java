@@ -12,7 +12,7 @@ public class Functions {
     }
 
     //Whether or not an enemy shows up
-    public double binomial (int n, int k, double p){
+    public double binomial (int n, int k, double p){ //n = number of tries; k = number of sucessses; p = probabibility to get it right 1st
         int answer = 1;
         for (int i = 1; i <= k; i++) {
             answer = answer * (n - k + i);
@@ -37,7 +37,8 @@ public class Functions {
     //The higher the player level, the higher the enemy level is; c=1
     public double triangular(double xMin, double xMax, double c){
         assert( xMin < xMax && xMin <= c && c <= xMax );
-        double p = uniform(), q = 1. - p;
+        double p = uniform();
+        double q = 1. - p;
         if ( p <= ( c - xMin ) / ( xMax - xMin ) )
             return xMin + sqrt( ( xMax - xMin ) * ( c - xMin ) * p );
         else

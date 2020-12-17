@@ -2,20 +2,25 @@ package Window;
 
 import Combat.CombatUI;
 import Combat.Player;
-
+import Auxiliary.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class Story implements ActionListener {
 
 	private final TravelUI travelUi;
 	protected CombatUI combatUI = new CombatUI();
 	protected int level = 0;
+	private static final int FINALLEVEL = 7;
 	protected Player player = combatUI.player;
+	private int n = 7;
+	private int k = 0;
+	private double p = 0.2;
+	private Functions fun = new Functions();
 
 	public Story (TravelUI travelUi) {
 		this.travelUi = travelUi;
-		System.out.println("Antes da house" + player.getHP());
 	}
 
 	@Override
@@ -24,10 +29,10 @@ public class Story implements ActionListener {
 		switch(travelUi.position) {
 			case "entrance" :
 				switch (chosen) {
-					case "b1" : break;
+					case "b1" : chooseEvent("");break;
 					case "b2" : combatUI.updateCombatUI(travelUi.window, "background.jpg"); break; /*Inimigo 100%*/
-					case "b3" : break;
-					case "b4" : break; /*Fim do Jogo 100%*/
+					case "b3" : unicorn(); break;
+					case "b4" : gameOver("Wuss. The forest swalled you whole.");break; /*Fim do Jogo 100%*/
 					case "b5" : break;
 				}
 				level++;
@@ -35,30 +40,79 @@ public class Story implements ActionListener {
 
 			case "house":
 				switch (chosen){
-					case "b2" : player.setHP(player.getHP()+3); break; /*Receber vida*/
-					case "b4" : break;
+					case "b2" : player.setHP(player.getHP()+3); chooseEvent("You find some potions inside that give you +3 HP"); break; /*Receber vida*/
+					case "b4" : chooseEvent(null); break;
 				}
 				level++;
 				break;
 
 			case "distantVoices":
 				switch (chosen){
-					case "b1" : combatUI.updateCombatUI(travelUi.window, "background.jpg"); break; /*100% inimigo*/
-					case "b3" : break;
-					case "b5" : break;
+					case "b1" : combatUI.updateCombatUI(travelUi.window, "background.jpg"); break;  //100% inimigo
+					case "b3" : break; //20% of an enemy
+					case "b5" : break; //random variable: higher player level, higher the probability of success
+
 				}
 				level++;
 				break;
+
+			case "unicorn":
+				switch (chosen){
+					case "b2" : break; //100% inimigo
+					case "b3" : break; //20% of an enemy
+					case "b4" : gameOver("What kinda monster kills a unicorn?! You were instantly swallowed by the forest"); break; //Game over
+				}
+				level++;
+				break;
+
+			case "gameOver":
+				switch (chosen){
+					case "b2" : break; //Main Menu
+					case "b4" : entrance(); break; //Game over
+				}
+				break;
+
 		}
 	}
 
-	private void chooseEvent(){
+	private void chooseEvent(String text){
 		//binomial to know if there is an enemy
+		System.out.println("p = " + p);
+		double bin = fun.binomial(n,k,p);
+		System.out.println(bin);
+		if (bin<0.2){
+			//doesn't face
+
+
+		}
+		else{
+			//faces
+
+			k++;
+		}
+
 		//if there is one, triangular to determine which enemy
+		//if there is not one, choose a random event
+		//if event has already been done, change
 
 	}
 
 	//Events:
+	private void entrance(){
+		level = 0;
+		String mainText = "You awaken inside a dark and creepy forest. You must find a way to escape. Which way do you go?";
+		String position = "entrance";
+		String tb1 = "GO LEFT";
+		String tb2 = "CALL FOR HELP";
+		String tb3 = "GO FORWARD";
+		String tb4 = "CRY";
+		String tb5 = "GO RIGHT";
+		String background = "background.jpg";
+		String songLink = "game.wav";
+		changePosition(position, mainText, tb1, tb2, tb3, tb4, tb5, songLink, background);
+
+	}
+
 	private void house(){
 		String mainText = "You come across a house. It appears to be abandoned. What do you do?";
 		String position = "house";
@@ -78,6 +132,24 @@ public class Story implements ActionListener {
 		changePosition(position, mainText, tb1, null, tb3, null, tb5, null, background);
 	}
 
+	private void unicorn(){
+		String mainText = "You come across a unicorn. It looks friendly. What do you do?";
+		String position = "unicorn";
+		String tb2 = "PET HIM";
+		String tb3 = "KEEP MOVING";
+		String tb4 = "KILL HIM";
+		String background = "unicorn.jpg";
+		String songLink = "unicorn.wav";
+		changePosition(position, mainText, null, tb2, tb3, tb4, null, songLink, background);
+	}
+
+	private void gameOver(String text){
+		String position = "gameOver";
+		String tb2 = "MAIN MENU";
+		String tb4 = "RESTART";
+		String background = "gameOver.jpg";
+		changePosition(position, text, null, tb2, null, tb4, null, null, background);
+	}
 
 
 	public void changePosition(String position, String mainText, String textButton1, String textButton2, String textButton3, String textButton4, String textButton5, String textSong, String background) {
@@ -115,6 +187,7 @@ public class Story implements ActionListener {
 			travelUi.bt5.setVisible(false);}
 
 		if(textSong != null) {
+			travelUi.song.stop();
 			travelUi.song.updateSong(textSong);
 		}
 
