@@ -23,7 +23,6 @@ public class TravelUI {
 	protected Story story = new Story (this);
 
 
-
 	public TravelUI(JFrame window) {
 		//Create Frame
 		this.window = window;
@@ -35,10 +34,7 @@ public class TravelUI {
 
 		//Set song
 		song = new Song("game.wav");
-
-
 	}
-
 
 	public void setBackground(String name) {
 		ImageIcon img = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Images/Backgrounds/" + name)));

@@ -19,16 +19,17 @@ public class Story implements ActionListener {
 	public Story (TravelUI travelUi) {
 		this.travelUi = travelUi;
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		String chosen = event.getActionCommand();
 		switch(travelUi.position) {
 			case "entrance" :
 				switch (chosen) {
-					case "b1" : chooseEvent(); break;
-					case "b2" : /*Inimigo 100%*/break;
+					case "b1" : break;
+					case "b2" : break; /*Inimigo 100%*/
 					case "b3" : break;
-					case "b4" : /*Fim do Jogo 100%*/break;
+					case "b4" : break; /*Fim do Jogo 100%*/
 					case "b5" : break;
 				}
 				level++;
@@ -44,13 +45,25 @@ public class Story implements ActionListener {
 	}
 
 	//Events:
-	private void holeInGround (String mainText){
-		String position = "holeInGround";
-		String tb2 = "TRY TO JUMP OVER";
-		String tb4 = "GO AROUND THE HOLE";
-		String tb5 = "CALL FOR HELP";
-		//changePosition(position, mainText, tb1, tb2, tb3, tb4, tb5, null);
+	private void distantVoices(){
+		String mainText = "You hear voices in distance. Could they be friendly? What do you do?";
+		String position = "distantVoices";
+		String tb1 = "INVESTIGATE";
+		String tb3 = "GO AROUND";
+		String tb5 = "HIDE AND WAIT";
+		String background = "background.jpg";
+		changePosition(position, mainText, tb1, null, tb3, null, tb5, null, background);
 	}
+
+	private void house(){
+		String mainText = "You come across a house. It appears to be abandoned. What do you do?";
+		String position = "distantVoices";
+		String tb2 = "INVESTIGATE";
+		String tb4 = "KEEP MOVING";
+		String background = "house.jpg";
+		changePosition(position, mainText, null, tb2, null, null, tb4, null, background);
+	}
+
 
 /*	private void mainHall(String mainText){
 		String position = "mainHall";
@@ -65,7 +78,7 @@ public class Story implements ActionListener {
 
 */
 
-	public void changePosition(String position, String mainText, String textButton1, String textButton2, String textButton3, String textButton4, String textButton5, String textSong) {
+	public void changePosition(String position, String mainText, String textButton1, String textButton2, String textButton3, String textButton4, String textButton5, String textSong, String background) {
 		travelUi.mainText.setText(mainText);
 		travelUi.position = position;
 		if(textButton1 != null) {
@@ -106,48 +119,6 @@ public class Story implements ActionListener {
 
 	}
 
-	private double uniform(){
-		return new Random().nextDouble();
-	}
-
-	//Whether or not an enemy shows up
-	private double binomial (int n, int k, double p){
-		int answer = 1;
-		for (int i = 1; i <= k; i++) {
-			answer = answer * (n - k + i);
-			answer = answer / i;
-		}
-		return answer * (double)Math.pow(p, k) * (double)Math.pow(1 - p, n - k);
-	}
-
-	//For critical damage (double damage)
-	private double negativeBinomial (int s, double p){
-		assert(s >= 1);
-		int sum = 0;
-		for (int i = 0; i < s; i++) sum += geometric(p);
-		return sum;
-	}
-
-	private int geometric( double p ) {
-		assert( 0. < p && p < 1. );
-		return (int) (log(uniform())/log( 1 - p ));
-	}
-
-	//The higher the player level, the higher the enemy level is; c=1
-	private double triangular(double xMin, double xMax, double c){
-		assert( xMin < xMax && xMin <= c && c <= xMax );
-		double p = uniform(), q = 1. - p;
-		if ( p <= ( c - xMin ) / ( xMax - xMin ) )
-			return xMin + sqrt( ( xMax - xMin ) * ( c - xMin ) * p );
-		else
-			return xMax - sqrt( ( xMax - xMin ) * ( xMax - c ) * q );
-	}
-
-	//The higher the player level, the harder it is to run
-	private double exponential( double a, double b ){
-		assert(b > 0);
-		return a - b * log(uniform());
-	}
 
 
 }
