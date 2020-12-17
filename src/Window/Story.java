@@ -30,7 +30,7 @@ public class Story implements ActionListener {
 			case "entrance" :
 				switch (chosen) {
 					case "b1" : break;
-					case "b2" : combatUI.updateCombatUI(travelUi.window, "background.jpg"); break; /*Inimigo 100%*/
+					case "b2" : combatUI.updateCombatUI(travelUi.window, this); break; /*Inimigo 100%*/
 					case "b3" : snake2(); break;
 					case "b4" : gameOver("Wuss. The forest swalled you whole.");break; /*Fim do Jogo 100%*/
 					case "b5" : snake1(); break;
@@ -48,7 +48,7 @@ public class Story implements ActionListener {
 
 			case "distantVoices":
 				switch (chosen){
-					case "b1" : combatUI.updateCombatUI(travelUi.window, "background.jpg"); break;  //100% inimigo
+					case "b1" : combatUI.updateCombatUI(travelUi.window, this); break;  //100% inimigo
 					case "b3" : break; //20% of an enemy
 					case "b5" : break; //random variable: higher player level, higher the probability of success
 
@@ -113,21 +113,24 @@ public class Story implements ActionListener {
 		}
 	}
 
-	private void chooseEvent(String text){
+	public void chooseEvent(String text){
+		unicorn();
 		//the higher the player level, the more probability of facing an enemy; the lesser the level, the less probability of facing
-		System.out.println("p = " + p);
-		double bin = fun.binomial(n,k,p);
+		//binomial to know if there is an enemy
+		double bin = fun.binomial(7,k,0.2);
+
+		System.out.println(k);
 		System.out.println(bin);
-		if (bin<0.2){
-			//doesn't face
-
-
-		}
-		else{
+		if (bin>=1){
 			//faces
-
 			k++;
 		}
+		else{
+			//doesn't fight
+
+
+		}
+
 
 		//if there is one, triangular to determine which enemy
 		//if there is not one, choose a random event

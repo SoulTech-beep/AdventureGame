@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 import Auxiliary.*;
+import Window.Story;
 
 public class CombatUI {
     private Enemy enemy;
@@ -27,6 +28,7 @@ public class CombatUI {
 
     //if true, player can run away
     private Boolean run = true;
+    private Story story;
 
 
     public CombatUI(){
@@ -34,11 +36,11 @@ public class CombatUI {
         enemy = new Enemy();
     }
 
-    public void updateCombatUI(JFrame window, String nameBackground) {
-
+    public void updateCombatUI(JFrame window, Story story) {
+        this.story = story;
         //Create Frame
 		this.window = window;
-		setBackground(nameBackground);
+		setBackground("background.jpg");
         song = new Song("game.wav");
         enemy.updateEnemy("demonKing", 2, 10);
         setCombatInterface();
@@ -154,6 +156,7 @@ public class CombatUI {
 
             if(enemy.getHP() <= 0){
                 //TODO ACABAR COMBATUI
+                story.chooseEvent("");
 
             }
 
@@ -162,6 +165,7 @@ public class CombatUI {
             textPlayerHealth.setText("HEALTH: " + player.getHP());
 
             if(player.getHP() <= 0){
+                story.chooseEvent("");
                 //TODO gameover
             }
         });
