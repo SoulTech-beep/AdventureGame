@@ -7,7 +7,7 @@ import Auxiliary.*;
 
 public class CombatUI {
     private Enemy enemy;
-    private Player player;
+    public Player player;
 
     private JFrame window;
     private int windowWidth = 1200;
@@ -18,7 +18,6 @@ public class CombatUI {
 
 
     protected ImagePanel backgroundPanel = new ImagePanel();
-    protected EnemyPanel enemyPanel = new EnemyPanel();
     protected Song song;
 
     //CombatInterface
@@ -39,15 +38,11 @@ public class CombatUI {
 
         //Create Frame
 		this.window = window;
-
 		setBackground(nameBackground);
-
-
-
-        song = new Song("s0.wav");
-        setEnemy();
+        song = new Song("game.wav");
+        enemy.updateEnemy("demonKing", 2, 10);
         setCombatInterface();
-
+        setEnemy();
     }
 
 
@@ -64,16 +59,11 @@ public class CombatUI {
     private void setEnemy(){
         //TODO make this random
 
-        enemy.updateEnemy("demonKing", 2, 10);
-        ImageIcon img = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Images/Enemies/" + enemy.getName() + ".png")));
-        // Image image = img.getImage();
-        System.out.println(img);
-       // enemyPanel.setImage(image);
-       // enemyPanel.setBounds(600,0, 600, 600);
-       // window.setContentPane(enemyPanel);
 
+        ImageIcon img = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Images/Enemies/" + enemy.getName() + ".png")));
+        System.out.println(img);
         JLabel enemyLabel = new JLabel();
-        enemyLabel.setBounds(600,0,600,600);
+        enemyLabel.setBounds(windowWidth/2-300,windowHeight/2-300,600,600);
         enemyLabel.setIcon(img);
         window.add(enemyLabel);
         //Visual
@@ -102,7 +92,7 @@ public class CombatUI {
         textPlayerDamage.setFont(Auxiliary.HealthBarFont);
         textPlayerDamage.setBounds(300, windowHeight /2+210, buttonWidth, 30);
         textPlayerDamage.setOpaque(false);
-        textPlayerDamage.setForeground(Color.BLACK);
+        textPlayerDamage.setForeground(Color.BLUE);
         textPlayerDamage.setEditable(false);
         window.add(textPlayerDamage);
 
@@ -115,12 +105,13 @@ public class CombatUI {
         textEnemyHealth.setEditable(false);
         window.add(textEnemyHealth);
 
-        //playerDamage
+        //EnemyDamage
         textEnemyDamage = new JTextArea("DAMAGE: " + enemy.getDamage());
+        System.out.println("Class CombatUI =" + enemy.getDamage());
         textEnemyDamage.setFont(Auxiliary.HealthBarFont);
         textEnemyDamage.setBounds(800, 610 , buttonWidth, 30);
         textEnemyDamage.setOpaque(false);
-        textEnemyDamage.setForeground(Color.BLACK);
+        textEnemyDamage.setForeground(Color.BLUE);
         textEnemyDamage.setEditable(false);
         window.add(textEnemyDamage);
 
@@ -194,105 +185,4 @@ public class CombatUI {
 
 }
 
-/*
-* import Auxiliary.Auxiliary;
 
-import java.awt.*;
-import java.util.Objects;
-import javax.swing.*;
-import Auxiliary.ImagePanel;
-import Combat.CombatUI;
-
-public class Window.TravelUI {
-
-	protected JFrame Window;
-	private int windowWidth;
-	private int windowHeight;
-	private int buttonWidth = 180;
-	private int buttonHeight = 50;
-	protected Image image;
-	protected ImagePanel backgroundPanel = new ImagePanel();
-	protected Auxiliary.Song song;
-	protected String position;
-	protected JTextArea mainText;
-	protected JButton bt1, bt2, bt3, bt4, bt5;
-	protected Window.Story story = new Window.Story (this);
-
-
-	public void createTravelUI(JFrame Window) {
-		//Create Frame
-		this.Window = Window;
-		setBackground("mainHall.jpg");
-		backgroundPanel.setBounds(0,0, windowWidth, windowHeight);
-
-		//Set position
-		mainHall();
-
-
-
-		//Set song
-		setSong("s0.wav");
-
-		//Window.setVisible(true);
-	}
-
-
-
-
-	public void setSong(String songLink) {
-		song = new Auxiliary.Song ("Sound/" + songLink);
-		song.start();
-		song.loop();
-	}
-
-	private void mainHall() {
-		//Define Player's Position with String
-		position = "mainHall";
-
-		//Main Text
-		mainText = new JTextArea("You awaken inside a dark castle. You must find a way to escape. Which way do you go?");
-		mainText.setLineWrap(true);
-		mainText.setFont(Auxiliary.mainFont);
-		mainText.setBounds(100, windowHeight / 2 + 190, 1000, 100);
-		mainText.setBackground(null);
-		mainText.setForeground(Color.BLACK);
-		mainText.setEditable(false);
-		Window.add(mainText);
-
-		// Buttons
-		bt1 = setButton("DINING HALL", "b1", 100);
-		Window.add(bt1);
-		bt2 = setButton("DUNGEON", "b2", (100 + buttonWidth + windowWidth / 2 - buttonWidth / 2) / 2 - buttonWidth / 2);
-		Window.add(bt2);
-		bt3 = setButton("UP THE STAIRS", "b3", windowWidth / 2 - buttonWidth / 2);
-		Window.add(bt3);
-		bt4 = setButton("BATHROOM", "b4", (windowWidth / 2 + buttonWidth / 2 + 1100 - buttonWidth) / 2 - buttonWidth / 2);
-		Window.add(bt4);
-		bt5 = setButton("THRONE ROOM", "b5", 1100 - buttonWidth);
-		Window.add(bt5);
-	}
-
-	private JButton setButton(String textButton, String id, int buttonX){
-		JButton button = new JButton(textButton);
-		button.setActionCommand(id);
-		button.addActionListener(story);
-		button.setBackground(Color.BLACK);
-		button.setForeground(Color.WHITE);
-		button.setFont(Auxiliary.buttonFont);
-		Rectangle bounds = new Rectangle(buttonX, windowHeight /2+300, buttonWidth, buttonHeight);
-		button.setBounds(bounds);
-		return button;
-	}
-	*
-	* public void setBackground(String name) {
-		ImageIcon img = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Images/Backgrounds/" + name)));
-		windowWidth = img.getIconWidth();
-		windowHeight = img.getIconHeight();
-		image = img.getImage();
-		backgroundPanel.setImage(image);
-		Window.setContentPane(backgroundPanel);
-	}
-
-}
-
-* */

@@ -1,7 +1,5 @@
 package Combat;
 
-import Auxiliary.EnemyPanel;
-
 public class Enemy extends Alive {
 
     private String name;
@@ -24,5 +22,6 @@ public class Enemy extends Alive {
         this.name = name;
         setHP(hp);
         setDamage(damage);
+        System.out.println("Class Enemy =" + damage);
     }
 }

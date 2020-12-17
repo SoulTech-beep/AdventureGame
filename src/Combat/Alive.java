@@ -6,6 +6,7 @@ abstract class Alive {
 
 //    public abstract void animalSound();
 
+
     public int getHP(){
         return hp;
     }

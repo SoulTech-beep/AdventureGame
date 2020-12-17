@@ -1,23 +1,21 @@
 package Window;
 
 import Combat.CombatUI;
+import Combat.Player;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
-
-import static java.lang.Math.log;
-import static java.lang.Math.sqrt;
 
 public class Story implements ActionListener {
 
 	private final TravelUI travelUi;
-	private final CombatUI cb = new CombatUI();
 	protected CombatUI combatUI = new CombatUI();
 	protected int level = 0;
+	protected Player player = combatUI.player;
 
 	public Story (TravelUI travelUi) {
 		this.travelUi = travelUi;
+		System.out.println("Antes da house" + player.getHP());
 	}
 
 	@Override
@@ -27,7 +25,7 @@ public class Story implements ActionListener {
 			case "entrance" :
 				switch (chosen) {
 					case "b1" : break;
-					case "b2" : break; /*Inimigo 100%*/
+					case "b2" : combatUI.updateCombatUI(travelUi.window, "background.jpg"); break; /*Inimigo 100%*/
 					case "b3" : break;
 					case "b4" : break; /*Fim do Jogo 100%*/
 					case "b5" : break;
@@ -35,6 +33,22 @@ public class Story implements ActionListener {
 				level++;
 				break;
 
+			case "house":
+				switch (chosen){
+					case "b2" : player.setHP(player.getHP()+3); break; /*Receber vida*/
+					case "b4" : break;
+				}
+				level++;
+				break;
+
+			case "distantVoices":
+				switch (chosen){
+					case "b1" : combatUI.updateCombatUI(travelUi.window, "background.jpg"); break; /*100% inimigo*/
+					case "b3" : break;
+					case "b5" : break;
+				}
+				level++;
+				break;
 		}
 	}
 
@@ -45,6 +59,15 @@ public class Story implements ActionListener {
 	}
 
 	//Events:
+	private void house(){
+		String mainText = "You come across a house. It appears to be abandoned. What do you do?";
+		String position = "house";
+		String tb2 = "INVESTIGATE"; //G
+		String tb4 = "KEEP MOVING";
+		String background = "house.jpg";
+		changePosition(position, mainText, null, tb2, null, tb4, null, null, background);
+	}
+
 	private void distantVoices(){
 		String mainText = "You hear voices in distance. Could they be friendly? What do you do?";
 		String position = "distantVoices";
@@ -55,31 +78,11 @@ public class Story implements ActionListener {
 		changePosition(position, mainText, tb1, null, tb3, null, tb5, null, background);
 	}
 
-	private void house(){
-		String mainText = "You come across a house. It appears to be abandoned. What do you do?";
-		String position = "distantVoices";
-		String tb2 = "INVESTIGATE";
-		String tb4 = "KEEP MOVING";
-		String background = "house.jpg";
-		changePosition(position, mainText, null, tb2, null, null, tb4, null, background);
-	}
 
-
-/*	private void mainHall(String mainText){
-		String position = "mainHall";
-		String tb1 = "DINING HALL";
-		String tb2 = "DUNGEON";
-		String tb3 = "UP THE STAIRS";
-		String tb4 = "BATHROOM";
-		String tb5 = "THRONE ROOM";
-		String background = "mainHall.jpg";
-		changePosition(position, mainText, tb1, tb2, tb3, tb4, tb5, background, null);
-	}
-
-*/
 
 	public void changePosition(String position, String mainText, String textButton1, String textButton2, String textButton3, String textButton4, String textButton5, String textSong, String background) {
 		travelUi.mainText.setText(mainText);
+		travelUi.setBackground(background);
 		travelUi.position = position;
 		if(textButton1 != null) {
 			travelUi.bt1.setText(textButton1);
@@ -114,10 +117,22 @@ public class Story implements ActionListener {
 		if(textSong != null) {
 			travelUi.song.updateSong(textSong);
 		}
-		combatUI.updateCombatUI(travelUi.window, "background.jpg");
 
 
 	}
+
+	/*	private void mainHall(String mainText){
+		String position = "mainHall";
+		String tb1 = "DINING HALL";
+		String tb2 = "DUNGEON";
+		String tb3 = "UP THE STAIRS";
+		String tb4 = "BATHROOM";
+		String tb5 = "THRONE ROOM";
+		String background = "mainHall.jpg";
+		changePosition(position, mainText, tb1, tb2, tb3, tb4, tb5, background, null);
+	}
+
+*/
 
 
 
