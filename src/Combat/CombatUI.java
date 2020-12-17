@@ -41,11 +41,11 @@ public class CombatUI {
 		this.window = window;
 
 		setBackground(nameBackground);
-        setEnemy();
+
 
 
         song = new Song("s0.wav");
-
+        setEnemy();
         setCombatInterface();
 
     }
@@ -64,26 +64,17 @@ public class CombatUI {
     private void setEnemy(){
         //TODO make this random
 
-        enemy.updateEnemy("demonKing", 2, 10);
-
-
-        //Visual
+        enemy.updateEnemy("bat", 2, 10);
         ImageIcon img = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Images/Enemies/" + enemy.getName() + ".png")));
-        Image image = img.getImage();
         System.out.println(img);
-        enemyPanel.setImage(image);
-        enemyPanel.setBounds(600,0, 600, 600);
-        window.setContentPane(enemyPanel);
-
-
+        JLabel enemyLabel = new JLabel();
+        enemyLabel.setBounds(600,0,600,600);
+        enemyLabel.setIcon(img);
+        window.add(enemyLabel);
     }
 
 
     public void setCombatInterface() {
-        //TODO FAZER JPANEL E O ICON COM A IMAGE
-
-
-
         //playerHealth
         textPlayerHealth = new JTextArea("HEALTH: " + player.getHP());
         textPlayerHealth.setFont(Auxiliary.HealthBarFont);

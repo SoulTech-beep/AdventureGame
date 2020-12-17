@@ -4,13 +4,17 @@ import Combat.CombatUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.*;
+
+import static java.lang.Math.log;
+import static java.lang.Math.sqrt;
 
 public class Story implements ActionListener {
 
 	private final TravelUI travelUi;
 	private final CombatUI cb = new CombatUI();
 	protected CombatUI combatUI = new CombatUI();
-
+	protected int level = 0;
 
 	public Story (TravelUI travelUi) {
 		this.travelUi = travelUi;
@@ -19,43 +23,36 @@ public class Story implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		String chosen = event.getActionCommand();
 		switch(travelUi.position) {
-			case "mainHall" :
+			case "entrance" :
 				switch (chosen) {
-					case "b1" : break;
-					case "b2" :
-						dungeonEntrance("You are now in the dungeons of the castle.");
-						break;
+					case "b1" : chooseEvent(); break;
+					case "b2" : /*Inimigo 100%*/break;
 					case "b3" : break;
-					case "b4" : break;
+					case "b4" : /*Fim do Jogo 100%*/break;
 					case "b5" : break;
 				}
+				level++;
 				break;
 
-			case "dungeonEntrance":
-				switch (chosen){
-					case "b2": break;
-					case "b3":
-						shrine("You are now at the shrine.");
-						break;
-					case "b4":
-						mainHall("You are now in the main hall.");
-						break;
-				}
-				break;
-
-			case "shrine":
-				switch (chosen){
-					case "b1": break;
-					case "b2":
-						dungeonEntrance("You came back to the dungeons");
-						break;
-				}
-				break;
 		}
 	}
 
+	private void chooseEvent(){
+		//binomial to know if there is an enemy
+		//if there is one, triangular to determine which enemy
 
-	private void mainHall(String mainText){
+	}
+
+	//Events:
+	private void holeInGround (String mainText){
+		String position = "holeInGround";
+		String tb2 = "TRY TO JUMP OVER";
+		String tb4 = "GO AROUND THE HOLE";
+		String tb5 = "CALL FOR HELP";
+		//changePosition(position, mainText, tb1, tb2, tb3, tb4, tb5, null);
+	}
+
+/*	private void mainHall(String mainText){
 		String position = "mainHall";
 		String tb1 = "DINING HALL";
 		String tb2 = "DUNGEON";
@@ -66,29 +63,11 @@ public class Story implements ActionListener {
 		changePosition(position, mainText, tb1, tb2, tb3, tb4, tb5, background, null);
 	}
 
-	private void dungeonEntrance(String mainText){
-//		cb.createCombatUI(travelUi.Window, backgroundPanel);
-		String position = "dungeonEntrance";
-		String tb2 = "ALCHEMY ROOM";
-		String tb3 = "SHRINE";
-		String tb4 = "GO BACK";
-		String background = "dungeonEntrance.jpg";
-		changePosition(position, mainText, null, tb2, tb3, tb4, null,  background, null);
-	}
+*/
 
-	private void shrine(String mainText){
-		String position = "shrine";
-		String tb1 = "SPECIAL ROOM";
-		String tb2 = "GO BACK";
-		String background = "shrine.jpg";
-		changePosition(position, mainText, tb1, tb2, null, null, null, background, null);
-	}
-
-
-	public void changePosition(String position, String mainText, String textButton1, String textButton2, String textButton3, String textButton4, String textButton5, String background, String textSong) {
+	public void changePosition(String position, String mainText, String textButton1, String textButton2, String textButton3, String textButton4, String textButton5, String textSong) {
 		travelUi.mainText.setText(mainText);
 		travelUi.position = position;
-		travelUi.setBackground(background);
 		if(textButton1 != null) {
 			travelUi.bt1.setText(textButton1);
 			travelUi.bt1.setVisible(true);
@@ -122,9 +101,53 @@ public class Story implements ActionListener {
 		if(textSong != null) {
 			travelUi.song.updateSong(textSong);
 		}
-		combatUI.updateCombatUI(travelUi.window, background);
+		combatUI.updateCombatUI(travelUi.window, "background.jpg");
 
 
 	}
+
+	private double uniform(){
+		return new Random().nextDouble();
+	}
+
+	//Whether or not an enemy shows up
+	private double binomial (int n, int k, double p){
+		int answer = 1;
+		for (int i = 1; i <= k; i++) {
+			answer = answer * (n - k + i);
+			answer = answer / i;
+		}
+		return answer * (double)Math.pow(p, k) * (double)Math.pow(1 - p, n - k);
+	}
+
+	//For critical damage (double damage)
+	private double negativeBinomial (int s, double p){
+		assert(s >= 1);
+		int sum = 0;
+		for (int i = 0; i < s; i++) sum += geometric(p);
+		return sum;
+	}
+
+	private int geometric( double p ) {
+		assert( 0. < p && p < 1. );
+		return (int) (log(uniform())/log( 1 - p ));
+	}
+
+	//The higher the player level, the higher the enemy level is; c=1
+	private double triangular(double xMin, double xMax, double c){
+		assert( xMin < xMax && xMin <= c && c <= xMax );
+		double p = uniform(), q = 1. - p;
+		if ( p <= ( c - xMin ) / ( xMax - xMin ) )
+			return xMin + sqrt( ( xMax - xMin ) * ( c - xMin ) * p );
+		else
+			return xMax - sqrt( ( xMax - xMin ) * ( xMax - c ) * q );
+	}
+
+	//The higher the player level, the harder it is to run
+	private double exponential( double a, double b ){
+		assert(b > 0);
+		return a - b * log(uniform());
+	}
+
 
 }

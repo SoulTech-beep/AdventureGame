@@ -27,14 +27,14 @@ public class TravelUI {
 	public TravelUI(JFrame window) {
 		//Create Frame
 		this.window = window;
-		setBackground("mainHall.jpg");
+		setBackground("background.jpg");
 		backgroundPanel.setBounds(0,0, windowWidth, windowHeight);
 
 		//Set position
-		mainHall();
+		entrance();
 
 		//Set song
-		song = new Song("s0.wav");
+		song = new Song("game.wav");
 
 
 	}
@@ -49,12 +49,12 @@ public class TravelUI {
 		window.setContentPane(backgroundPanel);
 	}
 
-	private void mainHall() {
+	private void entrance() {
 		//Define Player's Position with String
-		position = "mainHall";
+		position = "entrance";
 
 		//Main Text
-		mainText = new JTextArea("You awaken inside a dark castle. You must find a way to escape. Which way do you go?");
+		mainText = new JTextArea("You awaken inside a dark and creepy forest. You must find a way to escape. Which way do you go?");
 		mainText.setLineWrap(true);
 		mainText.setFont(Auxiliary.mainFont);
 		mainText.setBounds(100, windowHeight / 2 + 190, 1000, 100);
@@ -64,15 +64,15 @@ public class TravelUI {
 		window.add(mainText);
 
 		// Buttons
-		bt1 = setButton("DINING HALL", "b1", 100);
+		bt1 = setButton("GO LEFT", "b1", 100);
 		window.add(bt1);
-		bt2 = setButton("DUNGEON", "b2", (100 + buttonWidth + windowWidth / 2 - buttonWidth / 2) / 2 - buttonWidth / 2);
+		bt2 = setButton("CALL FOR HELP", "b2", (100 + buttonWidth + windowWidth / 2 - buttonWidth / 2) / 2 - buttonWidth / 2);
 		window.add(bt2);
-		bt3 = setButton("UP THE STAIRS", "b3", windowWidth / 2 - buttonWidth / 2);
+		bt3 = setButton("GO FORWARD", "b3", windowWidth / 2 - buttonWidth / 2);
 		window.add(bt3);
-		bt4 = setButton("BATHROOM", "b4", (windowWidth / 2 + buttonWidth / 2 + 1100 - buttonWidth) / 2 - buttonWidth / 2);
+		bt4 = setButton("CRY", "b4", (windowWidth / 2 + buttonWidth / 2 + 1100 - buttonWidth) / 2 - buttonWidth / 2);
 		window.add(bt4);
-		bt5 = setButton("THRONE ROOM", "b5", 1100 - buttonWidth);
+		bt5 = setButton("GO RIGHT", "b5", 1100 - buttonWidth);
 		window.add(bt5);
 	}
 

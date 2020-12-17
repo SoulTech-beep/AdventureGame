@@ -43,7 +43,7 @@ public class StartMenu {
         window.setLocation(x, y);
         window.setResizable(false);
 
-        Song song = new Song("mainMenu.wav");
+        Song song = new Song("menu.wav");
 
         startButton.setFont(Auxiliary.startButtonFont);
         startButton.setBackground(Color.BLACK);
