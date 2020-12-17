@@ -22,6 +22,5 @@ public class Enemy extends Alive {
         this.name = name;
         setHP(hp);
         setDamage(damage);
-        System.out.println("Class Enemy =" + damage);
     }
 }

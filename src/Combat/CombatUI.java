@@ -63,7 +63,6 @@ public class CombatUI {
 
 
         ImageIcon img = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Images/Enemies/" + enemy.getName() + ".png")));
-        System.out.println(img);
         JLabel enemyLabel = new JLabel();
         enemyLabel.setBounds(windowWidth/2-300,windowHeight/2-300,600,600);
         enemyLabel.setIcon(img);
@@ -109,7 +108,6 @@ public class CombatUI {
 
         //EnemyDamage
         textEnemyDamage = new JTextArea("DAMAGE: " + enemy.getDamage());
-        System.out.println("Class CombatUI =" + enemy.getDamage());
         textEnemyDamage.setFont(Auxiliary.HealthBarFont);
         textEnemyDamage.setBounds(800, 610 , buttonWidth, 30);
         textEnemyDamage.setOpaque(false);
@@ -165,14 +163,15 @@ public class CombatUI {
             textPlayerHealth.setText("HEALTH: " + player.getHP());
 
             if(player.getHP() <= 0){
-                story.chooseEvent("");
+                story.gameOver("You were defeated. ");
                 //TODO gameover
             }
         });
     }
 
     private void clickedRun(){
-        btAttack.addActionListener(e -> {
+        btRun.addActionListener(e -> {
+            story.gameOver("");
             //Player trys to run
 //            if(run)
 //                //run away //TODO ACABAR COMBATUI
