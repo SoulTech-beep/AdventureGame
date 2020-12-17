@@ -98,7 +98,7 @@ public class CombatUI {
         //EnemyHealth
         textEnemyHealth = new JTextArea("HEALTH: " + enemy.getHP());
         textEnemyHealth.setFont(Auxiliary.HealthBarFont);
-        textEnemyHealth.setBounds(600, 610 , buttonWidth, 30);
+        textEnemyHealth.setBounds(windowWidth/2-200,windowHeight/2-350 , buttonWidth, 30);
         textEnemyHealth.setOpaque(false);
         textEnemyHealth.setForeground(Color.RED);
         textEnemyHealth.setEditable(false);
@@ -107,7 +107,7 @@ public class CombatUI {
         //EnemyDamage
         textEnemyDamage = new JTextArea("DAMAGE: " + enemy.getDamage());
         textEnemyDamage.setFont(Auxiliary.HealthBarFont);
-        textEnemyDamage.setBounds(800, 610 , buttonWidth, 30);
+        textEnemyDamage.setBounds(windowWidth/2,windowHeight/2-350, buttonWidth, 30);
         textEnemyDamage.setOpaque(false);
         textEnemyDamage.setForeground(Color.BLUE);
         textEnemyDamage.setEditable(false);
