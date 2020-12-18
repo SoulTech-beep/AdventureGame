@@ -444,8 +444,9 @@ public class Story implements ActionListener {
         String position = "gameOver";
         String tb2 = "MAIN MENU";
         String tb4 = "RESTART";
+        String song = "gameOver.wav";
         String background = "gameOver.jpg";
-        changePosition(position, text, null, tb2, null, tb4, null, null, background);
+        changePosition(position, text, null, tb2, null, tb4, null, song, background);
     }
 
     public void endGame() {
@@ -457,8 +458,9 @@ public class Story implements ActionListener {
         String tb4 = "RESTART";
         String position = "endGame";
         String background = "endGame.jpg";
+        String song = "endGame.wav";
         String mainText = "Congratulations! You have reached the end of the forest alive! Hope you enjoyed playing. If you wish   to play again, click the button below to start over!";
-        changePosition(position, mainText, null, tb2, null, tb4, null, null, background);
+        changePosition(position, mainText, null, tb2, null, tb4, null, song, background);
     }
 
 
