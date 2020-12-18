@@ -176,8 +176,12 @@ public class Story implements ActionListener {
                 break;
 
             case "gameOver":
+
+            case "endGame":
                 switch (chosen) {
                     case "b2":
+                        travelUi.song.closeSong();
+                        new StartMenu(true, travelUi.window);
                         break; //Main Menu
                     case "b4":
                         entrance("");
@@ -192,16 +196,6 @@ public class Story implements ActionListener {
                         break;
                     case "b4":
                         run();
-                        break; //Game over
-                }
-                break;
-
-            case "endGame":
-                switch (chosen) {
-                    case "b2":
-                        break; //Main Menu
-                    case "b4":
-                        entrance("");
                         break; //Game over
                 }
                 break;
