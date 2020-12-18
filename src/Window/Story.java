@@ -109,51 +109,73 @@ public class Story implements ActionListener {
 	}
 
 	public void chooseEvent(String text, boolean fromCombatUI){
-		if(fromCombatUI){
-			travelUi.song.updateSong("game.wav");
-		}
-
-
-		System.out.println("Level: " + level);
-		//the higher the player level, the more probability of facing an enemy; the lesser the level, the less probability of facing
-		//binomial to know if there is an enemy
-		double bin = fun.binomial(FINALLEVEL,0.2);
-		System.out.println("Bin: " + bin);
-		if (bin>=1.5 && !fromCombatUI){
-			level++;
-			double tri = fun.triangular(1.0,  (double) FINALLEVEL, (double) level);
-			System.out.println("Tri: " + tri);
-			goToCombatUI(travelUi.window, this, "bat");
-		}
-		else{
-			//doesn't fight
-			int ratio = 6;
-			int event = new Random().nextInt(6 + 1);
-			// int event1 = new Random().nextInt(6 + 0 + 1);
-			while (usedEvents.contains(event)){
-				event = (int) (Math.random() * ratio);
-			}
-			System.out.println("Event: " + event);
-			usedEvents.add(event);
-			switch (event){
-				case 0: house(""); System.out.println ("Going to do the house"); break;
-				case 1: distantVoices(""); System.out.println ("Going to do the voices"); break;
-				case 2: unicorn(""); System.out.println ("Going to do unicorn"); break;
-				case 3: hole(""); System.out.println ("Going to do the hole"); break;
-				case 4: sword(""); System.out.println ("Going to do the sword"); break;
-				case 5: snake1(""); System.out.println ("Going to do the snake1"); break;
-				case 6: snake2(""); System.out.println ("Going to do the snake2"); break;
+		if(text.equals("gameOver")) {
+			gameOver("You were killed by a Monster!!");
+		}else {
+			if (fromCombatUI) {
+				travelUi.song.updateSong("game.wav");
 			}
 
 
+			System.out.println("Level: " + level);
+			//the higher the player level, the more probability of facing an enemy; the lesser the level, the less probability of facing
+			//binomial to know if there is an enemy
+			double bin = fun.binomial(FINALLEVEL, 0.2);
+			System.out.println("Bin: " + bin);
+			if (bin >= 1.5 && !fromCombatUI) {
+				level++;
+				double tri = fun.triangular(1.0, (double) FINALLEVEL, (double) level);
+				System.out.println("Tri: " + tri);
+				goToCombatUI(travelUi.window, this, "bat");
+			} else {
+				//doesn't fight
+				int ratio = 6;
+				int event = new Random().nextInt(6 + 1);
+				// int event1 = new Random().nextInt(6 + 0 + 1);
+				while (usedEvents.contains(event)) {
+					event = (int) (Math.random() * ratio);
+				}
+				System.out.println("Event: " + event);
+				usedEvents.add(event);
+				switch (event) {
+					case 0:
+						house("");
+						System.out.println("Going to do the house");
+						break;
+					case 1:
+						distantVoices("");
+						System.out.println("Going to do the voices");
+						break;
+					case 2:
+						unicorn("");
+						System.out.println("Going to do unicorn");
+						break;
+					case 3:
+						hole("");
+						System.out.println("Going to do the hole");
+						break;
+					case 4:
+						sword("");
+						System.out.println("Going to do the sword");
+						break;
+					case 5:
+						snake1("");
+						System.out.println("Going to do the snake1");
+						break;
+					case 6:
+						snake2("");
+						System.out.println("Going to do the snake2");
+						break;
+				}
+
+
+			}
+
+
+			//if there is one, triangular to determine which enemy
+			//if there is not one, choose a random event
+			//if event has already been done, change
 		}
-
-
-
-		//if there is one, triangular to determine which enemy
-		//if there is not one, choose a random event
-		//if event has already been done, change
-
 	}
 
 	public void holeEvent(){

@@ -31,6 +31,8 @@ public class CombatUI {
     private Boolean run = true;
     private Story story;
 
+    private int numberOfAttacks;
+
 
     public CombatUI(){
         player = new Player();
@@ -43,7 +45,7 @@ public class CombatUI {
 		this.window = window;
 		setBackground("background.jpg");
         song = new Song("Enemies/" + selectedEnemy + ".wav");
-        enemy.updateEnemy(selectedEnemy);
+        enemy.updateEnemy("demonKing");
         setCombatInterface();
         setEnemy();
     }
@@ -147,20 +149,27 @@ public class CombatUI {
     private void clickedAttack(){
         btAttack.addActionListener(e -> {
             //Player attacks Enemy
+
+            //s: number of hits (starting in 1)
+            //p: initial chance to give critical damage
+            Functions function = new Functions();
+            numberOfAttacks++;
+            int negBin = function.negativeBinomial(numberOfAttacks,0.3);
+            System.out.println(negBin);
+
+
             enemy.setHP( enemy.getHP() - player.getDamage() );
             textEnemyHealth.setText("HEALTH: " + enemy.getHP());
 
             if(enemy.getHP() <= 0){
-                endCombatUI();
+                numberOfAttacks = 0;
+                endCombatUI("");
             }
 
             //Enemy attacks Player
             player.setHP( player.getHP() - enemy.getDamage() );
             textPlayerHealth.setText("HEALTH: " + player.getHP());
-
-            if(player.getHP() <= 0){
-               story.gameOver("You were defeated. ");
-            }
+            isPlayerDead();
         });
     }
 
@@ -170,10 +179,11 @@ public class CombatUI {
             double exp = story.getFun().exponential(0,story.getLevel());
     		System.out.println("Exp: " + exp);
             if(exp>=story.getLevel()/2) {
-                endCombatUI();
+                endCombatUI("");
             }
             else{
                 player.setHP( player.getHP() - enemy.getDamage() );
+                isPlayerDead();
             }
         });
     }
@@ -181,10 +191,15 @@ public class CombatUI {
 
 
 
+    private void isPlayerDead(){
+        if(player.getHP() <= 0){
+            numberOfAttacks= 0;
+            endCombatUI("gameOver");
+        }
+    }
 
-
-    private void endCombatUI(){
-        story.chooseEvent("", true);
+    private void endCombatUI(String text){
+        story.chooseEvent(text, true);
         textPlayerHealth.setVisible(false);
         window.remove(textPlayerHealth);
         textPlayerDamage.setVisible(false);

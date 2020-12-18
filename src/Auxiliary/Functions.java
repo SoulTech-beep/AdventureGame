@@ -35,7 +35,9 @@ public class Functions {
         return (int) ( log(uniform()) / log(1-p) );
     }
 
-    //For critical damage (double damage)
+    //For critical damage (double damage
+    //s: number of hits (starting in 1)
+    //p: initial chance to give critical damage
     public int negativeBinomial( int s, double p ) {
         assert(s>=1);
         int sum = 0;
