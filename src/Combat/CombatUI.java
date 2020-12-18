@@ -28,11 +28,7 @@ public class CombatUI {
     protected JTextArea textPlayerHealth, textPlayerDamage, textEnemyHealth, textEnemyDamage;
 
     //if true, player can run away
-    private Boolean run = true;
     private Story story;
-
-    private int numberOfAttacks;
-
 
     public CombatUI(){
         player = new Player();
@@ -45,7 +41,7 @@ public class CombatUI {
 		this.window = window;
 		setBackground("background.jpg");
         song = new Song("Enemies/" + selectedEnemy + ".wav");
-        enemy.updateEnemy("demonKing");
+        enemy.updateEnemy(selectedEnemy);
         setCombatInterface();
         setEnemy();
     }
@@ -149,20 +145,14 @@ public class CombatUI {
     private void clickedAttack(){
         btAttack.addActionListener(e -> {
             //Player attacks Enemy
-
-            //s: number of hits (starting in 1)
-            //p: initial chance to give critical damage
             Functions function = new Functions();
-            numberOfAttacks++;
-            int negBin = function.negativeBinomial(numberOfAttacks,0.3);
-            System.out.println(negBin);
-
+            int negBin = function.negativeBinomial(1, 0.3);
+            System.out.println("Negative Binomial Value: "+ negBin);
 
             enemy.setHP( enemy.getHP() - player.getDamage() );
             textEnemyHealth.setText("HEALTH: " + enemy.getHP());
 
             if(enemy.getHP() <= 0){
-                numberOfAttacks = 0;
                 endCombatUI("");
             }
 
@@ -170,16 +160,17 @@ public class CombatUI {
             player.setHP( player.getHP() - enemy.getDamage() );
             textPlayerHealth.setText("HEALTH: " + player.getHP());
             isPlayerDead();
+
         });
     }
 
     private void clickedRun(){
         btRun.addActionListener(e -> {
             story.gameOver("");
-            double exp = story.getFun().exponential(0,story.getLevel());
-    		System.out.println("Exp: " + exp);
-            if(exp>=story.getLevel()/2) {
-                endCombatUI("");
+            double exp = story.getFun().exponential(0,enemy.getDamage());
+            System.out.println("Exponential Value (Run): " + exp);
+            if(exp>=enemy.getDamage()/2) {
+                endCombatUI("You managed to escape from the " + enemy.getName() );
             }
             else{
                 player.setHP( player.getHP() - enemy.getDamage() );
@@ -188,15 +179,12 @@ public class CombatUI {
         });
     }
 
-
-
-
     private void isPlayerDead(){
-        if(player.getHP() <= 0){
-            numberOfAttacks= 0;
+        if (player.getHP()<=0){
             endCombatUI("gameOver");
         }
     }
+
 
     private void endCombatUI(String text){
         story.chooseEvent(text, true);

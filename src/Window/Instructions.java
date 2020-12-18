@@ -30,7 +30,7 @@ public class Instructions {
         startButton.setFont(Auxiliary.startButtonFont);
         startButton.setBackground(Color.BLACK);
         startButton.setForeground(Color.WHITE);
-        startButton.setBounds(windowWidth/2 - 210/2, 700, 210, 70);
+        startButton.setBounds(windowWidth/2 - 210/2, 750, 210, 70);
 
         window.add(startButton);
 
