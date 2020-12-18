@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 
 public class StartMenu {
 
-    private JFrame window = new JFrame("Castle Adventure");
+    private JFrame window = new JFrame("Escape the Dark Forest");
 
     private ImagePanel titleImagePanel = new ImagePanel();
 
@@ -56,7 +56,7 @@ public class StartMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 song.closeSong();
-                TravelUI travelUi = new TravelUI(window);
+                new TravelUI(window);
             }
         });
 
@@ -68,7 +68,7 @@ public class StartMenu {
         rulesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("yyyyyyyyyyyyyyyyyyy");
+                new Instructions(window, song);
             }
         });
         window.add(rulesButton);

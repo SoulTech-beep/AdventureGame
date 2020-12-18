@@ -167,16 +167,16 @@ public class CombatUI {
     private void clickedRun(){
         btRun.addActionListener(e -> {
             story.gameOver("");
-//            Player trys to run
-            if(run)
+            double exp = story.getFun().exponential(0,story.getLevel());
+    		System.out.println("Exp: " + exp);
+            if(exp>=story.getLevel()/2) {
                 endCombatUI();
-                //run away //TODO ACABAR COMBATUI
-            else
-                //Enemy attacks Player
+            }
+            else{
                 player.setHP( player.getHP() - enemy.getDamage() );
+            }
         });
     }
-
 
 
 

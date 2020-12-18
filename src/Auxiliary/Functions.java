@@ -30,6 +30,11 @@ public class Functions {
         return sum;
     }
 
+    public int geometric( double p ) {
+        assert( 0 < p && p < 1 );
+        return (int) ( log(uniform()) / log(1-p) );
+    }
+
     //For critical damage (double damage)
     public int negativeBinomial( int s, double p ) {
         assert(s>=1);
@@ -37,11 +42,6 @@ public class Functions {
         for ( int i = 0; i < s; i++ )
             sum += geometric(p);
         return sum;
-    }
-
-    public int geometric( double p ) {
-        assert( 0 < p && p < 1 );
-        return (int) ( log(uniform()) / log(1-p) );
     }
 
     //The higher the player level, the higher the enemy level is; c=1

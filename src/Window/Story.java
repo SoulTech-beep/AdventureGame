@@ -19,7 +19,6 @@ public class Story implements ActionListener {
 	private int level = 0;
 	private static final int FINALLEVEL = 6;
 	protected Player player = combatUI.player;
-	private int k = 0;
 	private Functions fun = new Functions();
 	private ArrayList<Integer> usedEvents = new ArrayList<Integer> ();
 
@@ -67,7 +66,7 @@ public class Story implements ActionListener {
 
 			case "hole":
 				switch (chosen){
-					case "b2" : break; //the higher the level, the more likely you are to jump over it
+					case "b2" : holeEvent(); break; //the higher the level, the more likely you are to jump over it
 					case "b4" : chooseEvent("", false); break; //random chance of facing an enemy
 				}
 				break;
@@ -121,18 +120,16 @@ public class Story implements ActionListener {
 		double bin = fun.binomial(FINALLEVEL,0.2);
 		System.out.println("Bin: " + bin);
 		if (bin>=1.5 && !fromCombatUI){
+			level++;
 			double tri = fun.triangular(1.0,  (double) FINALLEVEL, (double) level);
 			System.out.println("Tri: " + tri);
 			goToCombatUI(travelUi.window, this, "bat");
-			level++;
-			k++;
 		}
 		else{
 			//doesn't fight
 			int ratio = 6;
 			int event = new Random().nextInt(6 + 1);
 			// int event1 = new Random().nextInt(6 + 0 + 1);
-			System.out.println("Event0: " + event);
 			while (usedEvents.contains(event)){
 				event = (int) (Math.random() * ratio);
 			}
@@ -152,10 +149,21 @@ public class Story implements ActionListener {
 		}
 
 
+
 		//if there is one, triangular to determine which enemy
 		//if there is not one, choose a random event
 		//if event has already been done, change
 
+	}
+
+	public void holeEvent(){
+		System.out.println("Level: " + level);
+		double exp = fun.exponential(0,level);
+		System.out.println("Exp: " + exp);
+		if(exp<level/2)
+			chooseEvent("You managed to jump over the hole", false);
+		else
+			gameOver("You fell down the hole. Better luck next time pal. ");
 	}
 
 	//Events:
@@ -307,18 +315,15 @@ public class Story implements ActionListener {
 
 	}
 
-	/*	private void mainHall(String mainText){
-		String position = "mainHall";
-		String tb1 = "DINING HALL";
-		String tb2 = "DUNGEON";
-		String tb3 = "UP THE STAIRS";
-		String tb4 = "BATHROOM";
-		String tb5 = "THRONE ROOM";
-		String background = "mainHall.jpg";
-		changePosition(position, mainText, tb1, tb2, tb3, tb4, tb5, background, null);
+	public int getLevel(){
+		return level;
 	}
 
-*/
+	public Functions getFun(){
+		return fun;
+	}
+
+
 	private void goToCombatUI(JFrame window, Story story, String selectedEnemy){
 		travelUi.song.closeSong();
 		combatUI.updateCombatUI(window, story, selectedEnemy);

@@ -31,13 +31,12 @@ public class Enemy extends Alive {
         EnemyDamage = new HashMap<String, Integer>();
         //(key, City)
         EnemyDamage.put("bat", 1);
-        EnemyDamage.put("imp", 2);
-        EnemyDamage.put("goblin", 3);
-        EnemyDamage.put("cultist", 4);
-        EnemyDamage.put("knight", 5);
-        EnemyDamage.put("troll", 6);
-        EnemyDamage.put("wraith", 6);
-        EnemyDamage.put("demonKing", 6);
+        EnemyDamage.put("imp", 1);
+        EnemyDamage.put("goblin", 2);
+        EnemyDamage.put("knight", 3);
+        EnemyDamage.put("troll", 4);
+        EnemyDamage.put("wraith", 4);
+        EnemyDamage.put("demonKing", 5);
 
         EnemyHealth = new HashMap<String, Integer>();
         EnemyHealth.put("bat", 5);
