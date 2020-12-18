@@ -212,6 +212,7 @@ public class Story implements ActionListener {
                 gameOver("You have been defeated!");
             } else {
                 if (fromCombatUI) {
+
                     travelUi.song.updateSong("game.wav");
                 }
 

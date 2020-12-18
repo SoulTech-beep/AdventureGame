@@ -29,6 +29,7 @@ public class Song {
     }
 
     public void updateSong(String songLink) {
+        clip.close();
         makeSong(songLink);
         clip.start();
         clip.loop(Clip.LOOP_CONTINUOUSLY);
