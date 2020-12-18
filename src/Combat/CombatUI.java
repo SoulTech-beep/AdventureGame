@@ -122,10 +122,10 @@ public class CombatUI {
         window.add(combatText);
 
         // Buttons
-        btAttack = setButton("ATTACK", windowHeight /2+240);
+        btAttack = setButton("FIGHT", windowHeight /2+240);
         clickedAttack();
         window.add(btAttack);
-        btRun = setButton("RUN",  windowHeight /2+300);
+        btRun = setButton("TRY TO FLEE",  windowHeight /2+300);
         clickedRun();
         window.add(btRun);
 
@@ -166,14 +166,18 @@ public class CombatUI {
 
     private void clickedRun(){
         btRun.addActionListener(e -> {
-            story.gameOver("");
+//            story.gameOver("");
             double exp = story.getFun().exponential(0,enemy.getDamage());
             System.out.println("Exponential Value (Run): " + exp);
-            if(exp>=enemy.getDamage()/2) {
+            System.out.println("If run is >= x then escape!!: " + enemy.getDamage());
+            if(exp>=enemy.getDamage()) {
+//                story.setLevel(0);
                 endCombatUI("You managed to escape from the " + enemy.getName() );
+
             }
             else{
                 player.setHP( player.getHP() - enemy.getDamage() );
+                textPlayerHealth.setText("HEALTH: " + player.getHP());
                 isPlayerDead();
             }
         });

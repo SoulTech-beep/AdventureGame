@@ -514,9 +514,9 @@ public class Story implements ActionListener {
 
     }
 
-    public int getLevel() {
-        return level;
-    }
+//    public void setLevel(int level) {
+//        this.level= level;
+//    }
 
     public Functions getFun() {
         return fun;
